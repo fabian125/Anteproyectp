@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.ideaBank.interfaces;
+package edu.uniajc.anteproyecto.interfaces;
 
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Remote;
-import edu.uniajc.ideaBank.interfaces.model.Rol;
+import edu.uniajc.anteproyecto.interfaces.model.Rol;
 import java.util.ArrayList;
 
 /**
