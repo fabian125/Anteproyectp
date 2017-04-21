@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.ideaBank.view;
+package edu.uniajc.iAnteproyecto.view;
 
 import java.beans.*;
 import java.io.Serializable;
