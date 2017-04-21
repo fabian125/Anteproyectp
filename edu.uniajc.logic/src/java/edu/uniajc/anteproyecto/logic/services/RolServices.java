@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.ideaBank.logic.services;
+package edu.uniajc.anteproyecto.logic.services;
 
-import edu.uniajc.ideaBank.DAO.RolDAO;
+import edu.uniajc.Anteproyecto.DAO.RolDAO;
 import javax.ejb.Stateless;
-import edu.uniajc.ideaBank.interfaces.IRol;
-import edu.uniajc.ideaBank.interfaces.model.Rol;
+import edu.uniajc.anteproyecto.interfaces.IRol;
+import edu.uniajc.anteproyecto.interfaces.model.Rol;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;

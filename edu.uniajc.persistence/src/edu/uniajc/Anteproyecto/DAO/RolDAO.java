@@ -4,9 +4,9 @@
  * and open the template in the editor.
 hector prueba
  */
-package edu.uniajc.ideaBank.DAO;
+package edu.uniajc.Anteproyecto.DAO;
 
-import edu.uniajc.ideaBank.interfaces.model.Rol;
+import edu.uniajc.anteproyecto.interfaces.model.Rol;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
