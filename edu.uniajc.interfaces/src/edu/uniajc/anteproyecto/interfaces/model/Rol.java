@@ -77,5 +77,4 @@ public class Rol {
         this.modificadoEn = modificadoEn;
     }
     
- //hiola   
 }
