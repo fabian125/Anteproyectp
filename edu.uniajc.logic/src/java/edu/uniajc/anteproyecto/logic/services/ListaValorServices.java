@@ -32,7 +32,7 @@ public class ListaValorServices  implements IListaValor{
             if (!agrupacion.equals("") && !descripcion.equals("") && !valor.equals("") && !String.valueOf(id).equals(""))
             {
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
-                Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/iris")).getConnection();
+                Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
                 ListaValoresDAO dao = new ListaValoresDAO(dbConnection);
                 	
 
