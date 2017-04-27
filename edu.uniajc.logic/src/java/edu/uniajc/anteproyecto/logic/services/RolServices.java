@@ -33,7 +33,7 @@ public class RolServices implements IRol{
             if (!description.equals("") && !typeRol.equals("") && !createdBy.equals(""))
             {
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
-                Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+                Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/iris")).getConnection();
                 RolDAO dao = new RolDAO(dbConnection);
                 
                 Date date = (createdDate == null)? new Date():createdDate;
@@ -53,7 +53,7 @@ public class RolServices implements IRol{
     @Override
     public ArrayList<Rol> getRoles() {      
         try {
-            Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+            Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/iris")).getConnection();
             RolDAO dao = new RolDAO(dbConnection);
             //consulta las ideas que conincidan con el nombre buscado
             ArrayList<Rol> list = dao.getRoles();
