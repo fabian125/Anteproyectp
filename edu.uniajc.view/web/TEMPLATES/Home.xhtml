@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+        <div id="divGeneral">
+            <div id="top">
+                <div id="logo">
+                    <p:graphicImage value="resources/image/LOGO CAMACHO.png"/>
+                </div>
+                <div id="logotipo">
+                    <h1> <center>Gestión De Anteproyectos</center></h1>
+                </div>
+                <div id="menuHome">
+                     <h:form>  
+                        <p:growl id="messages"/>
+                           <p:menubar>
+                     
+                         
+                           <p:submenu label="Inicio" icon="ui-icon-document" >
+                             <p:menuitem value="Inicio" outcome="index" />
+                           </p:submenu>
+                          
+                         <p:submenu label="Listados" icon="ui-icon-document" >
+                           <p:menuitem value="ListadoValor" outcome="ListaValor.xhtml"/>
+                         </p:submenu>
+                           
+                             </p:menubar>
+
+                    </h:form>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div id="content" class="center_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+            <div id="bottom">
+                <h2>&copy; 2017 - IRIS (UNIAJC)</h2>
+            </div>
+        </div>
+    </h:body>
+
+</html>
