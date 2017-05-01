@@ -4,11 +4,9 @@
  * and open the template in the editor.
  */
 package edu.uniajc.anteproyecto.logic.services;
-
-import edu.uniajc.Anteproyecto.DAO.LineamientoDAO;
-import edu.uniajc.anteproyecto.interfaces.ILineamiento;
-import edu.uniajc.anteproyecto.interfaces.model.Lineamiento;
-
+import edu.uniajc.Anteproyecto.DAO.LineamientoDetalleDAO;
+import edu.uniajc.anteproyecto.interfaces.ILineamientoDetalle;
+import edu.uniajc.anteproyecto.interfaces.model.LineamientoDetalle;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -18,33 +16,31 @@ import javax.ejb.Stateless;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 /**
  *
  * @author Leon
  */
-@Stateless
-public class LineamientoServices implements ILineamiento{
+public class LineamientoDetalleServices implements ILineamientoDetalle{
 
     @Override
-    public boolean createLineamiento(int ID, String descripcion, String dreadoPor, Date creadoEn, String modificadoPor, Date modificadoEn) {
+    public boolean createLineamientoDetalle(int id, int idLineamiento, String descripcion, Double porcentaje, int corte, String dreadoPor, Date creadoEn, String modificadoPor, Date modificadoEn) {
         try {
 
             // validacion de Data
-            if (! String.valueOf(ID).equals("") && !descripcion.equals("") && !dreadoPor.equals("") && (!String.valueOf(creadoEn).equals("")) && !modificadoPor.equals("")&& (!String.valueOf(modificadoEn).equals("")))
+            if (! String.valueOf(id).equals("") && ! String.valueOf(idLineamiento).equals("") && !descripcion.equals("") && ! String.valueOf(porcentaje).equals("") && ! String.valueOf(corte).equals("")&& !dreadoPor.equals("") && (!String.valueOf(creadoEn).equals("")) && !modificadoPor.equals("")&& (!String.valueOf(modificadoEn).equals("")))
             {
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
                // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
                  ConexionBD cn = new ConexionBD();
-                LineamientoDAO dao = new LineamientoDAO(cn.conexion());
+                LineamientoDetalleDAO dao = new LineamientoDetalleDAO(cn.conexion());
                 	
 
                 
-                Lineamiento lineamiento = dao.createLineamiento(ID, descripcion, dreadoPor, creadoEn, modificadoPor, modificadoEn);
+                LineamientoDetalle lineamientoDetalle = dao.createLineamientoDetalle(id, idLineamiento, descripcion, porcentaje, corte, dreadoPor, creadoEn, modificadoPor, modificadoEn);
                 
                
                         
-                return (lineamiento == null ? false :
+                return (lineamientoDetalle == null ? false :
                         true);
             } else {
                 return false;
@@ -53,46 +49,72 @@ public class LineamientoServices implements ILineamiento{
             System.out.println(e.getMessage());
             return false;
         }
+        
     }
 
     @Override
-    public ArrayList<Lineamiento> getLineamientos() {
-       try {
+    public boolean deleteLineamientoDetalle(int ID) {
+        try {
 
            
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
-               // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
-                ConexionBD cn = new ConexionBD();
-               LineamientoDAO dao = new LineamientoDAO(cn.conexion());
+                //Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+                 ConexionBD cn = new ConexionBD();
+                LineamientoDetalleDAO dao = new LineamientoDetalleDAO(cn.conexion());
                 	
 
                 
-                ArrayList<Lineamiento> list = dao.getLineamientos();
+               return dao.deleteLineamientoDetalle(ID);
                 
                 
-                return list;
+                
            
                 
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
+            return false;
         }
     }
 
     @Override
-    public List<Lineamiento> getLineamientoByDirector(String director) {
+    public boolean updateLineamientoDetalle(LineamientoDetalle lineamientoDetalle) {
          try {
 
            
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
                // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
                 ConexionBD cn = new ConexionBD(); 
-               LineamientoDAO dao = new LineamientoDAO(cn.conexion());
+               LineamientoDetalleDAO dao = new LineamientoDetalleDAO(cn.conexion());
                 	
 
                 
-                ArrayList<Lineamiento> list = dao.getLineamientoByDirector(director);
+               return dao.updateLineamientoDetalle(lineamientoDetalle);
+                
+                
+                
+           
+                
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public List<LineamientoDetalle> getLineamientoDetalleByLineamiento(int lineamiento) {
+         try {
+
+           
+                // se adquiere la conexion a base de datos desde el servidor de aplicaciones
+               // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+                ConexionBD cn = new ConexionBD(); 
+               LineamientoDetalleDAO dao = new LineamientoDetalleDAO(cn.conexion());
+                	
+
+                
+                List<LineamientoDetalle> list = dao.getLineamientoDetalleByLineamiento(lineamiento);
                 
                 
                 return list;
@@ -106,26 +128,21 @@ public class LineamientoServices implements ILineamiento{
     }
 
     @Override
-    public List<Lineamiento> getLineamientoByFacultad(String facultad) {
-        return null;
-    }
-
-    @Override
-    public Lineamiento getLineamientoById(int id) {
+    public LineamientoDetalle getLineamientoDetalleById(int id) {
         try {
 
            
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
                 //Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
                  ConexionBD cn = new ConexionBD();
-                LineamientoDAO dao = new LineamientoDAO(cn.conexion());
+                LineamientoDetalleDAO dao = new LineamientoDetalleDAO(cn.conexion());
                 	
 
                 
-                Lineamiento lineamiento = dao.getLineamientoById(id);
+                LineamientoDetalle lineamientoDetalle = dao.getLineamientoDetalleById(id);
                 
                 
-                return lineamiento;
+                return lineamientoDetalle;
            
                 
             
@@ -136,52 +153,27 @@ public class LineamientoServices implements ILineamiento{
     }
 
     @Override
-    public boolean deleteLineamiento(int ID) {
+    public ArrayList<LineamientoDetalle> getLineamientosDetalle() {
         try {
 
            
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
                 //Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
-                 ConexionBD cn = new ConexionBD();
-                LineamientoDAO dao = new LineamientoDAO(cn.conexion());
+                ConexionBD cn = new ConexionBD();
+                LineamientoDetalleDAO dao = new LineamientoDetalleDAO(cn.conexion());
                 	
 
                 
-               return dao.deleteLineamiento(ID);
+                ArrayList<LineamientoDetalle> list = dao.getLineamientosDetalle();
                 
                 
-                
+                return list;
            
                 
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return false;
-        }
-    }
-
-    @Override
-    public boolean updateLineamiento(Lineamiento lineamiento) {
-        try {
-
-           
-                // se adquiere la conexion a base de datos desde el servidor de aplicaciones
-               // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
-                ConexionBD cn = new ConexionBD(); 
-               LineamientoDAO dao = new LineamientoDAO(cn.conexion());
-                	
-
-                
-               return dao.updateLineamiento(lineamiento);
-                
-                
-                
-           
-                
-            
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
+            return null;
         }
     }
     
