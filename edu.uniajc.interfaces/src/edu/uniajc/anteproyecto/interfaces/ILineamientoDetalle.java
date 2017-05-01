@@ -5,7 +5,7 @@
  */
 package edu.uniajc.anteproyecto.interfaces;
 
-import edu.uniajc.anteproyecto.interfaces.model.Lineamiento;
+
 import edu.uniajc.anteproyecto.interfaces.model.LineamientoDetalle;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -17,9 +17,10 @@ import java.util.List;
  */
 public interface ILineamientoDetalle {
     
-    public LineamientoDetalle createLineamientoDetalle(int id,    int idLineamiento,    String descripcion,    Double porcentaje,    int corte,    String dreadoPor,    Date creadoEn,    String modificadoPor,    Date modificadoEn);
-    
-    public List<LineamientoDetalle> getLineamientoByLineamiento(int lineamiento);
-   
+    public boolean createLineamientoDetalle(int id,    int idLineamiento,    String descripcion,    Double porcentaje,    int corte,    String dreadoPor,    Date creadoEn,    String modificadoPor,    Date modificadoEn);
+    public boolean deleteLineamientoDetalle(int ID);
+    public boolean updateLineamientoDetalle(LineamientoDetalle lineamientoDetalle);
+    public List<LineamientoDetalle> getLineamientoDetalleByLineamiento(int lineamiento);
     public LineamientoDetalle getLineamientoDetalleById(int id);
+    public ArrayList<LineamientoDetalle> getLineamientosDetalle();
 }
