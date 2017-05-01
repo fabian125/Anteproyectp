@@ -124,7 +124,7 @@ public class LineamientoDAO {
     }
     
     public Lineamiento getLineamientoById(int id) throws SQLException {
-        ArrayList<Lineamiento> list = new ArrayList<Lineamiento>();
+        
         Lineamiento lineamiento = new Lineamiento();
         try {
 
@@ -142,7 +142,7 @@ public class LineamientoDAO {
                 lineamiento.setCreadoEn(rs.getDate("CreadoEn"));
                 lineamiento.setModificadoPor(rs.getString("ModificadoPor"));
                 lineamiento.setModificadoEn(rs.getDate("ModificadoEn"));
-                list.add(lineamiento);
+                
             }
 
                        
@@ -184,12 +184,13 @@ public class LineamientoDAO {
             PreparedStatement ps = null;
             String SQL = "update TB_Metodologia set descripcion = ?,creadoPor = ?,creadoEn =?,modificadoPor ?,modificadoEn ? where id = ?";
             ps = this.DBConnection.prepareStatement(SQL);
-            ps.setInt(1,lineamiento.getID());
-            ps.setString(2, lineamiento.getDescripcion());
-            ps.setString(3, lineamiento.getCreadoPor());
-            ps.setDate(4, lineamiento.getCreadoEn());
-            ps.setString(5, lineamiento.getModificadoPor());
-            ps.setDate(6, lineamiento.getModificadoEn());
+            
+            ps.setString(1, lineamiento.getDescripcion());
+            ps.setString(2, lineamiento.getCreadoPor());
+            ps.setDate(3, lineamiento.getCreadoEn());
+            ps.setString(4, lineamiento.getModificadoPor());
+            ps.setDate(5, lineamiento.getModificadoEn());
+            ps.setInt(6,lineamiento.getID());
             ps.execute();
 
             ps = this.DBConnection.prepareStatement(SQL);
