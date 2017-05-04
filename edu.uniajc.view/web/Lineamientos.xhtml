@@ -20,6 +20,8 @@
                     <h:panelGrid columns="4" cellpadding="5">
                         <p:outputLabel for="add_1" value="Codigo :" />
                         <p:inputText   id="add_1" value="#{lineamientoBean.lineamiento.ID}" />
+                        
+                        
                         <p:outputLabel for="add_2" value="Descripcion :" />
                         <p:inputText   id="add_2" value="#{lineamientoBean.lineamiento.descripcion}" />                       
                     </h:panelGrid>
@@ -50,6 +52,7 @@
 
                       <p:column headerText="Codigo Lineamiento">
                           <p:outputLabel value="#{lineamiento.ID}"></p:outputLabel>
+                  
 			</p:column>
                
 			<p:column  headerText="Descripciones ">
