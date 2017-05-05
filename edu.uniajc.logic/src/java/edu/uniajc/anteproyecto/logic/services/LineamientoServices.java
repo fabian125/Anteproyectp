@@ -146,11 +146,11 @@ public class LineamientoServices implements ILineamiento{
                 //Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
                  ConexionBD cn = new ConexionBD();
                 LineamientoDAO dao = new LineamientoDAO(cn.conexion());
-                boolean flag= dao.deleteLineamiento(ID);
+              dao.deleteLineamiento(ID);
                          cn.conexion().close();
 
                 
-               return flag;
+               return true;
                 
                 
                 
@@ -172,11 +172,11 @@ public class LineamientoServices implements ILineamiento{
                // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
                 ConexionBD cn = new ConexionBD(); 
                LineamientoDAO dao = new LineamientoDAO(cn.conexion());
-                boolean flag =	dao.updateLineamiento(lineamiento);
+               dao.updateLineamiento(lineamiento);
                 cn.conexion().close();
 
                 
-               return flag;
+               return true;
                 
                 
                 
