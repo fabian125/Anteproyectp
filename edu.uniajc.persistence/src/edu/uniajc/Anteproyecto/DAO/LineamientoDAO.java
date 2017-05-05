@@ -38,7 +38,7 @@ public class LineamientoDAO {
             //ResultSet rs = ps.executeQuery();
             //int codigo = rs.getInt("ID");
 
-            SQL = "insert into TB_Lineamiento( ID,descripcion,creadoPor,creadoEn,modificadoPor,modificadoEn) values(?,?,?,?,?,?)";
+            SQL = "insert into TB_Metodologia( ID,descripcion,creadoPor,creadoEn,modificadoPor,modificadoEn) values(?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setInt(1,lineamiento.getID());
             ps.setString(2, lineamiento.getDescripcion());
@@ -66,7 +66,7 @@ public class LineamientoDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Lineamiento";
+            String SQL = "select * from TB_Metodologia";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -95,7 +95,7 @@ public class LineamientoDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Lineamiento where CreadoPor =" +director+" ";
+            String SQL = "select * from TB_Metodologia where CreadoPor =" +director+" ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -125,7 +125,7 @@ public class LineamientoDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Lineamiento where ID =" +id+" ";
+            String SQL = "select * from TB_Metodologia where ID =" +id+" ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if(rs != null){
@@ -155,7 +155,7 @@ public class LineamientoDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "delete from TB_Lineamiento where ID =" +id+" ";
+            String SQL = "delete from TB_Metodologia where ID =" +id+" ";
             ps = this.DBConnection.prepareStatement(SQL);
             //ResultSet rs = ps.executeQuery();
             //int codigo = rs.getInt("ID");
@@ -179,7 +179,7 @@ public class LineamientoDAO {
            
 
             PreparedStatement ps = null;
-            String SQL = "update TB_Lineamiento set descripcion = ?,creadoPor = ?,creadoEn = ?,modificadoPor = ?,modificadoEn = ? where id = ?";
+            String SQL = "update TB_Metodologia set descripcion = ?,creadoPor = ?,creadoEn = ?,modificadoPor = ?,modificadoEn = ? where id = ?";
             ps = this.DBConnection.prepareStatement(SQL);
             
             ps.setString(1, lineamiento.getDescripcion());
