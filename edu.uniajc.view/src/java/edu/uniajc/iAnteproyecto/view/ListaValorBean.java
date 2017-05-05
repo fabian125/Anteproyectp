@@ -9,6 +9,8 @@ import javax.faces.bean.RequestScoped;
 import edu.uniajc.Anteproyecto.DAO.*;
 import edu.uniajc.anteproyecto.interfaces.model.ListaValor;
 import edu.uniajc.anteproyecto.logic.services.*;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 /**
  *
  * @author jarteaga
@@ -27,13 +29,21 @@ public class ListaValorBean {
     }
     
     
-    public ListaValor guardarListaValor (){
+    public void guardarListaValor (){
         
         ListaValorServices valorService = new ListaValorServices();
        try{
-        return (valorService.createListaValor(0, listavalor.getAgrupacion(), listavalor.getDescripcion(), listavalor.getValor()));
+         if((valorService.createListaValor(0, listavalor.getAgrupacion(), listavalor.getDescripcion(), listavalor.getValor())) != null){
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+         }else{
+                  FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operacion");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+         }
        }catch(Exception e){
-           return null;
+                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Ha ocurrido un error");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+           
        }
     }
     

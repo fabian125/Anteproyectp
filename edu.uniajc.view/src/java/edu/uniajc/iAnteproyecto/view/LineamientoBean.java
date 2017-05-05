@@ -84,7 +84,7 @@ public class LineamientoBean {
         FacesContext.getCurrentInstance().addMessage(null, msg);
         limpiarForma();
            }else{
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operación");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                
            }
@@ -94,6 +94,11 @@ public class LineamientoBean {
        
         Object ob= event.getObject();
         Lineamiento ln = (Lineamiento) ob ;
+         Date date = new Date(2017, 4, 4);
+             ln.setCreadoEn(date);           
+             ln.setModificadoEn(date);
+             ln.setCreadoPor("Leon");
+             ln.setModificadoPor("Leon");
         
             
 
