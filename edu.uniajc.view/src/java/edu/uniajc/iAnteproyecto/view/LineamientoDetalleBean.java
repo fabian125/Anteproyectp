@@ -43,7 +43,8 @@ public class LineamientoDetalleBean {
         lineamientoDetalle = new LineamientoDetalle();
         servicios = new LineamientoDetalleServices();
         itemsLineamiento = Consultar_Lineamiento_combo();
-        listalineamientoDetalle = servicios.getLineamientosDetalle();
+       // listalineamientoDetalle = servicios.getLineamientosDetalle();
+       //listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
     }
     public ArrayList<SelectItem> Consultar_Lineamiento_combo() {
          LineamientoServices serviciosLine =new LineamientoServices();
@@ -57,7 +58,7 @@ public class LineamientoDetalleBean {
     }
     public void limpiarForma() {
         lineamientoDetalle = new LineamientoDetalle();
-        listalineamientoDetalle = servicios.getLineamientosDetalle();
+        listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
         v_select_lineamiento="";
     }
 
@@ -124,6 +125,10 @@ public class LineamientoDetalleBean {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realziar la operación");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+    }
+    
+    public void llenarlista (){
+        listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
     }
 
     public LineamientoDetalleServices getServicios() {
