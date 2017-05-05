@@ -21,7 +21,7 @@
                         
                          <p:outputLabel for="add_1" value="Lineamiento :" />
                          <p:selectOneMenu  id="add_1" value="#{lineamientoDetalleBean.v_select_lineamiento}">  
-                             <p:ajax listener="#{lineamientoDetalleBean.llenarlista()}" update=":forma2:listaLineamientoDetalle" />   
+                             <p:ajax listener="#{lineamientoDetalleBean.llenarlista}" update=":forma2:listaLineamientoDetalle" />   
                              <f:selectItem itemLabel="Seleccione" itemValue="" />  
                                 <f:selectItems value="#{lineamientoDetalleBean.itemsLineamiento}"/>  
                         </p:selectOneMenu>

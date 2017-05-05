@@ -7,7 +7,7 @@ package edu.uniajc.iAnteproyecto.view;
 
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import edu.uniajc.anteproyecto.interfaces.model.*;
 import edu.uniajc.anteproyecto.logic.services.*;
@@ -23,7 +23,7 @@ import org.primefaces.event.RowEditEvent;
  * @author Leon
  */
 @ManagedBean(name = "lineamientoDetalleBean")
-@RequestScoped
+@ViewScoped
 public class LineamientoDetalleBean {
 
     private LineamientoDetalleServices servicios;
@@ -59,7 +59,7 @@ public class LineamientoDetalleBean {
     public void limpiarForma() {
         lineamientoDetalle = new LineamientoDetalle();
         listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
-        v_select_lineamiento="";
+        //v_select_lineamiento="";
     }
 
     public void crear() {
@@ -117,7 +117,7 @@ public class LineamientoDetalleBean {
                 }
             }
         }
-        listalineamientoDetalle = servicios.getLineamientosDetalle();
+        listalineamientoDetalle =  servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
         if (flag) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Lineamiento Fue eliminado con exito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
