@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface ILineamientoDetalle {
     
-    public boolean createLineamientoDetalle(int id,    int idLineamiento,    String descripcion,    Double porcentaje,    int corte,    String dreadoPor,    Date creadoEn,    String modificadoPor,    Date modificadoEn);
+    public boolean createLineamientoDetalle(LineamientoDetalle lineamientoDetalle);
     public boolean deleteLineamientoDetalle(int ID);
     public boolean updateLineamientoDetalle(LineamientoDetalle lineamientoDetalle);
     public List<LineamientoDetalle> getLineamientoDetalleByLineamiento(int lineamiento);

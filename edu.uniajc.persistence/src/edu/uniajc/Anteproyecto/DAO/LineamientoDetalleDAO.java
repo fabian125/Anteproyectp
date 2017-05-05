@@ -28,18 +28,9 @@ public class LineamientoDetalleDAO {
         this.DBConnection = openConnection;
     }
 
-    public LineamientoDetalle createLineamientoDetalle(int id, int idLineamiento, String descripcion, Double porcentaje, int corte, String creadoPor, Date creadoEn, String modificadoPor, Date modificadoEn) {
+    public LineamientoDetalle createLineamientoDetalle(LineamientoDetalle lineamientoDetalle) {
         try {
-            LineamientoDetalle lineamientoDetalle = new LineamientoDetalle();
-            lineamientoDetalle.setId(id);
-            lineamientoDetalle.setIdLineamiento(idLineamiento);
-            lineamientoDetalle.setDescripcion(descripcion);
-            lineamientoDetalle.setPorcentaje(porcentaje);
-            lineamientoDetalle.setCorte(corte);
-            lineamientoDetalle.setCreadoPor(creadoPor);
-            lineamientoDetalle.setCreadoEn(creadoEn);
-            lineamientoDetalle.setModificadoPor(modificadoPor);
-            lineamientoDetalle.setModificadoEn(modificadoEn);
+             
 
             PreparedStatement ps = null;
 
@@ -60,10 +51,12 @@ public class LineamientoDetalleDAO {
             ps.setString(8, lineamientoDetalle.getModificadoPor());
             ps.setDate(9, lineamientoDetalle.getModificadoEn());
             ps.execute();
+            ps.close();
 
             //combo.setCodigo(id);            
             return lineamientoDetalle;
         } catch (SQLException e) {
+            System.out.println("Error en  Lineamiento Detalle DAO "+ e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
@@ -94,9 +87,10 @@ public class LineamientoDetalleDAO {
 
                 list.add(lineamientoDetalle);
             }
-
+            ps.close();
             return list;
         } catch (SQLException e) {
+            System.out.println("Error en  Lineamiento Detalle DAO "+ e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
@@ -127,9 +121,10 @@ public class LineamientoDetalleDAO {
                 lineamientoDetalle.setModificadoEn(rs.getDate("modificadoEn"));
 
             }
-
+            ps.close();
             return lineamientoDetalle;
         } catch (SQLException e) {
+            System.out.println("Error en  Lineamiento Detalle DAO "+ e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
@@ -159,9 +154,10 @@ public class LineamientoDetalleDAO {
                 lineamientoDetalle.setModificadoEn(rs.getDate("modificadoEn"));
                 list.add(lineamientoDetalle);
             }
-
+            ps.close();
             return list;
         } catch (SQLException e) {
+            System.out.println("Error en  Lineamiento Detalle DAO "+ e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
@@ -174,18 +170,21 @@ public class LineamientoDetalleDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "delete * from TB_MetodologiaDetalle where ID =" +ID+" ";
+            String SQL = "delete from TB_MetodologiaDetalle where ID =" +ID+" ";
             ps = this.DBConnection.prepareStatement(SQL);
             //ResultSet rs = ps.executeQuery();
             //int codigo = rs.getInt("ID");
 
             ps = this.DBConnection.prepareStatement(SQL);
 
-            return ps.execute();
+            ps.execute();
+            ps.close();
+            return true;
 
             //combo.setCodigo(id);            
              
         } catch (SQLException e) {
+            System.out.println("Error en  Lineamiento Detalle DAO "+ e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
@@ -212,11 +211,14 @@ public class LineamientoDetalleDAO {
 
             ps = this.DBConnection.prepareStatement(SQL);
 
-            return ps.execute();
+             ps.execute();
+            ps.close();
+            return true;
 
             //combo.setCodigo(id);            
              
         } catch (SQLException e) {
+            System.out.println("Error en  Lineamiento Detalle DAO "+ e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }

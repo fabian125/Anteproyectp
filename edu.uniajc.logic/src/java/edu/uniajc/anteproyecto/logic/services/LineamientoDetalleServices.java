@@ -23,11 +23,11 @@ import javax.sql.DataSource;
 public class LineamientoDetalleServices implements ILineamientoDetalle{
 
     @Override
-    public boolean createLineamientoDetalle(int id, int idLineamiento, String descripcion, Double porcentaje, int corte, String dreadoPor, Date creadoEn, String modificadoPor, Date modificadoEn) {
+    public boolean createLineamientoDetalle(LineamientoDetalle lineamientoDetalle) {
         try {
 
             // validacion de Data
-            if (! String.valueOf(id).equals("") && ! String.valueOf(idLineamiento).equals("") && !descripcion.equals("") && ! String.valueOf(porcentaje).equals("") && ! String.valueOf(corte).equals("")&& !dreadoPor.equals("") && (!String.valueOf(creadoEn).equals("")) && !modificadoPor.equals("")&& (!String.valueOf(modificadoEn).equals("")))
+            if (lineamientoDetalle!=null)
             {
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
                // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
@@ -36,11 +36,11 @@ public class LineamientoDetalleServices implements ILineamientoDetalle{
                 	
 
                 
-                LineamientoDetalle lineamientoDetalle = dao.createLineamientoDetalle(id, idLineamiento, descripcion, porcentaje, corte, dreadoPor, creadoEn, modificadoPor, modificadoEn);
+                LineamientoDetalle lineamientoDetalleReturn = dao.createLineamientoDetalle(lineamientoDetalle);
                 cn.conexion().close();
                
                         
-                return (lineamientoDetalle == null ? false :
+                return (lineamientoDetalleReturn == null ? false :
                         true);
             } else {
                 return false;
