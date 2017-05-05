@@ -12,15 +12,15 @@ import java.sql.Date;
  * @author Leon
  */
 public class LineamientoDetalle {
-    int id;
-    int idLineamiento;
-    String descripcion;
-    Double porcentaje;
-    int corte;
-    String creadoPor;
-    Date creadoEn;
-    String modificadoPor;
-    Date modificadoEn;
+    private int id;
+    private int idLineamiento;
+    private String descripcion;
+    private Double porcentaje;
+    private int corte;
+    private String creadoPor;
+    private Date creadoEn;
+    private String modificadoPor;
+    private Date modificadoEn;
 
     public int getId() {
         return id;

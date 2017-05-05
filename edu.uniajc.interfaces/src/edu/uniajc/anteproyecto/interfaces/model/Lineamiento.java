@@ -12,12 +12,12 @@ import java.sql.Date;
  * @author Leon
  */
 public class Lineamiento {
-   int ID;
-   String descripcion;
-   String creadoPor;
-   Date creadoEn;
-   String modificadoPor;
-   Date modificadoEn;
+   private int ID;
+   private String descripcion;
+   private String creadoPor;
+   private Date creadoEn;
+   private String modificadoPor;
+   private Date modificadoEn;
 
     public int getID() {
         return ID;
