@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./TEMPLATES/Home.xhtml">
+            <ui:define name="content">
+             <h:form>
+    <p:growl id="msgs" showDetail="true" />
+ 
+    <p:panel header="Ingrese los Datos:" style="margin-bottom:10px;">
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:outputLabel for="country" value="ID Tipo Proyecto: " />
+            <p:selectOneMenu id="country" value="#{dropdownView.country}" style="width:150px">
+                <p:ajax listener="#{dropdownView.onCountryChange}" update="city" />
+                <f:selectItem itemLabel="Select" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{dropdownView.countries}" />
+            </p:selectOneMenu>
+ 
+            <p:outputLabel for="city" value="ID Tipo Usuario " />
+            <p:selectOneMenu id="city" value="#{dropdownView.city}" style="width:150px">
+                <f:selectItem itemLabel="Select" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{dropdownView.cities}" />
+            </p:selectOneMenu>
+            
+            
+              <p:outputLabel for="Tipo" value="ID Tipo Integrante " />
+            <p:selectOneMenu id="Tipo" value="#{dropdownView.city}" style="width:150px">
+                <f:selectItem itemLabel="Select" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{dropdownView.cities}" />
+            </p:selectOneMenu>
+              
+              
+              <p:outputLabel for="Estado" value="Estado Integrante: " />
+            <p:selectOneMenu id="Estado" value="#{dropdownView.city}" style="width:150px">
+                <f:selectItem itemLabel="Select" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{dropdownView.cities}" />
+            </p:selectOneMenu>
+              
+                  
+            
+             
+              <p:outputLabel for="add_2" value="Creado Por:" />
+              <p:inputText   id="add_2" value="#{lineamientoBean.lineamiento.descripcion}" /> 
+             
+             
+ 
+        <p:outputLabel for="button" value="Fecha De Creacion:" />
+        <p:calendar id="button" value="#{calendarView.date3}" showOn="button" />
+        
+        <p:outputLabel for="add_1" value="Creado Por:" />
+         <p:inputText   id="add_1" value="#{lineamientoBean.lineamiento.descripcion}" /> 
+         
+         <p:outputLabel for="buttone" value="Fecha De Modificacion:" />
+        <p:calendar id="buttone" value="#{calendarView.date3}" showOn="button" />
+        
+           <p:outputLabel for="Obervaciones" value="Observaciones: " />
+             <p:inputTextarea id= "Obervaciones" rows="6" cols="33" />
+         
+         
+                  
+            
+            
+            
+   
+            
+        </h:panelGrid>
+ 
+        <p:separator />
+ 
+        <p:commandButton value="Submit" update="msgs" actionListener="#{dropdownView.displayLocation}" icon="ui-icon-check" />
+    </p:panel>
+</h:form>
+	
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

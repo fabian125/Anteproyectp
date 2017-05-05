@@ -15,3 +15,10 @@ nbproject/
 *.jar
 *.war
 *.ear
+/edu.uniajc.interfaces/build/
+/edu.uniajc.persistence/build/
+/edu.uniajc.interfaces/dist/
+/edu.uniajc.logic/build/
+/edu.uniajc.persistence/dist/
+/edu.uniajc.logic/dist/
+/edu.uniajc.logic/nbproject/
