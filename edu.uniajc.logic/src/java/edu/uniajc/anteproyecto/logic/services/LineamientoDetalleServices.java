@@ -37,7 +37,7 @@ public class LineamientoDetalleServices implements ILineamientoDetalle{
 
                 
                 LineamientoDetalle lineamientoDetalle = dao.createLineamientoDetalle(id, idLineamiento, descripcion, porcentaje, corte, dreadoPor, creadoEn, modificadoPor, modificadoEn);
-                
+                cn.conexion().close();
                
                         
                 return (lineamientoDetalle == null ? false :
@@ -61,10 +61,11 @@ public class LineamientoDetalleServices implements ILineamientoDetalle{
                 //Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
                  ConexionBD cn = new ConexionBD();
                 LineamientoDetalleDAO dao = new LineamientoDetalleDAO(cn.conexion());
-                	
+                boolean flag=dao.deleteLineamientoDetalle(ID);
+                        cn.conexion().close();
 
                 
-               return dao.deleteLineamientoDetalle(ID);
+               return flag;
                 
                 
                 
@@ -84,12 +85,13 @@ public class LineamientoDetalleServices implements ILineamientoDetalle{
            
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
                // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
-                ConexionBD cn = new ConexionBD(); 
+               ConexionBD cn = new ConexionBD(); 
                LineamientoDetalleDAO dao = new LineamientoDetalleDAO(cn.conexion());
-                	
+               boolean flag=dao.updateLineamientoDetalle(lineamientoDetalle);
+               cn.conexion().close();
 
                 
-               return dao.updateLineamientoDetalle(lineamientoDetalle);
+               return flag;
                 
                 
                 
@@ -115,7 +117,7 @@ public class LineamientoDetalleServices implements ILineamientoDetalle{
 
                 
                 List<LineamientoDetalle> list = dao.getLineamientoDetalleByLineamiento(lineamiento);
-                
+                 cn.conexion().close();
                 
                 return list;
            
@@ -140,7 +142,7 @@ public class LineamientoDetalleServices implements ILineamientoDetalle{
 
                 
                 LineamientoDetalle lineamientoDetalle = dao.getLineamientoDetalleById(id);
-                
+                 cn.conexion().close();
                 
                 return lineamientoDetalle;
            
@@ -165,7 +167,7 @@ public class LineamientoDetalleServices implements ILineamientoDetalle{
 
                 
                 ArrayList<LineamientoDetalle> list = dao.getLineamientosDetalle();
-                
+                 cn.conexion().close();
                 
                 return list;
            

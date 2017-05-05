@@ -29,7 +29,7 @@ public class LineamientoDAO {
 
     public Lineamiento createLineamiento(Lineamiento lineamiento) {
         try {
-            
+           
 
             PreparedStatement ps = null;
 
@@ -47,7 +47,7 @@ public class LineamientoDAO {
             ps.setString(5, lineamiento.getModificadoPor());
             ps.setDate(6, lineamiento.getModificadoEn());
             ps.execute();
-
+            ps.close();
             //combo.setCodigo(id);            
             return lineamiento;
         } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class LineamientoDAO {
                 lineamiento.setModificadoEn(rs.getDate("ModificadoEn"));
                 list.add(lineamiento);
             }
-
+            ps.close();
                        
             return list;
         } catch (SQLException e) {
@@ -108,7 +108,7 @@ public class LineamientoDAO {
                 lineamiento.setModificadoEn(rs.getDate("ModificadoEn"));
                 list.add(lineamiento);
             }
-
+            ps.close();
                        
             return list;
         } catch (SQLException e) {
@@ -139,7 +139,7 @@ public class LineamientoDAO {
                 lineamiento.setModificadoEn(rs.getDate("ModificadoEn"));
                 
             }
-
+            ps.close();
                        
             return lineamiento;
         } catch (SQLException e) {
@@ -155,18 +155,20 @@ public class LineamientoDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "delete * from TB_Lineamiento where ID =" +id+" ";
+            String SQL = "delete from TB_Lineamiento where ID =" +id+" ";
             ps = this.DBConnection.prepareStatement(SQL);
             //ResultSet rs = ps.executeQuery();
             //int codigo = rs.getInt("ID");
 
             ps = this.DBConnection.prepareStatement(SQL);
-
-            return ps.execute();
+            ps.execute();
+            ps.close();
+            return true;
 
             //combo.setCodigo(id);            
              
         } catch (SQLException e) {
+            System.out.println("Error en LineamientoDao "+ e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
@@ -189,8 +191,9 @@ public class LineamientoDAO {
             ps.execute();
             
             ps = this.DBConnection.prepareStatement(SQL);
-
-            return ps.execute();
+           ps.execute();
+                     ps.close();
+            return true;
 
             //combo.setCodigo(id);            
              

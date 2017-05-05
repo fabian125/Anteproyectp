@@ -18,18 +18,14 @@
                 
                 <p:tab title="Gestion Lineamientos"> <!-- Nombre  -->
                     <h:panelGrid columns="4" cellpadding="5">
-                        <p:outputLabel for="add_1" value="Codigo :" />
-                        <p:inputText   id="add_1" value="#{lineamientoBean.lineamiento.ID}" />
-                        
-                        
-                        <p:outputLabel for="add_2" value="Descripcion :" />
-                        <p:inputText   id="add_2" value="#{lineamientoBean.lineamiento.descripcion}" />                       
+                        <p:outputLabel for="add_1" value="Descripcion :" />
+                        <p:inputText   id="add_1" value="#{lineamientoBean.lineamiento.descripcion}" />                       
                     </h:panelGrid>
                     <p:separator />
                     
                     <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
                     <p:commandButton 
-                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma2:listaLineamiento"
+                        update=":forma:grow,:forma:tab:add_1,:forma2:listaLineamiento"
                         ajax="true" value="Crear" action="#{lineamientoBean.crear}"
                                       />
                 </p:tab>
@@ -63,6 +59,27 @@
                                </f:facet>
                             </p:cellEditor>
 			</p:column>
+                       
+                       <p:column headerText="Creado Por">
+                          <p:outputLabel value="#{lineamiento.creadoPor}"></p:outputLabel>
+                  
+			</p:column>
+                    
+                       <p:column headerText="Creado En">
+                          <p:outputLabel value="#{lineamiento.creadoEn}"></p:outputLabel>
+                  
+			</p:column>
+                        
+                       <p:column headerText="Modificado Por">
+                          <p:outputLabel value="#{lineamiento.modificadoPor}"></p:outputLabel>
+                  
+			</p:column>
+                       
+                          <p:column headerText="Modificado En">
+                          <p:outputLabel value="#{lineamiento.modificadoEn}"></p:outputLabel>
+                  
+			</p:column>               
+                         
 
 			
 

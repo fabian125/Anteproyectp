@@ -11,7 +11,7 @@ import javax.faces.bean.RequestScoped;
 
 import edu.uniajc.anteproyecto.interfaces.model.*;
 import edu.uniajc.anteproyecto.logic.services.*;
-import java.sql.Date;
+import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -65,9 +65,10 @@ public class LineamientoBean {
     }
 
     public void crear() {
-        Date date = new Date(2017, 4, 4);
-        lineamiento.setCreadoEn(date);
-        lineamiento.setModificadoEn(date);
+       Date fecha = new Date();
+        java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+        lineamiento.setCreadoEn(fechaSQL);
+        lineamiento.setModificadoEn(fechaSQL);
         lineamiento.setCreadoPor("Leon");
         lineamiento.setModificadoPor("Leon");
 
@@ -88,9 +89,10 @@ public class LineamientoBean {
 
         Object ob = event.getObject();
         Lineamiento ln = (Lineamiento) ob;
-        Date date = new Date(2017, 4, 4);
-        ln.setCreadoEn(date);
-        ln.setModificadoEn(date);
+         Date fecha = new Date();
+        java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+        //ln.setCreadoEn(fechaSQL);
+        ln.setModificadoEn(fechaSQL);
         ln.setCreadoPor("Leon");
         ln.setModificadoPor("Leon");
 
@@ -108,6 +110,7 @@ public class LineamientoBean {
         boolean flag = false;
         for (Lineamiento lineamientoEliminar : listalineamiento) {
             if (lineamientoEliminar.getID() == IdLineamiento) {
+                
                 if (servicios.deleteLineamiento(IdLineamiento)) {
                     flag = true;
                     break;
@@ -117,7 +120,7 @@ public class LineamientoBean {
         }
         listalineamiento = servicios.getLineamientos();
         if (flag) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El proyecto Fue eliminado con exito.");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Lineamiento Fue eliminado con exito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realziar la operación");
