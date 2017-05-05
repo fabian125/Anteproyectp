@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface ILineamiento {
         
-    public boolean createLineamiento(int ID,   String descripcion,   String dreadoPor,   Date creadoEn,   String modificadoPor,   Date modificadoEn);
+    public boolean createLineamiento(Lineamiento lineamiento);
     public boolean deleteLineamiento(int ID);
     public boolean updateLineamiento(Lineamiento lineamiento);
     

@@ -71,13 +71,7 @@ public class LineamientoBean {
         lineamiento.setCreadoPor("Leon");
         lineamiento.setModificadoPor("Leon");
 
-        if (servicios.createLineamiento(
-                lineamiento.getID(),
-                lineamiento.getDescripcion(),
-                lineamiento.getCreadoPor(),
-                lineamiento.getCreadoEn(),
-                lineamiento.getModificadoPor(),
-                lineamiento.getModificadoEn())) {
+        if (servicios.createLineamiento(lineamiento)) {
 
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);

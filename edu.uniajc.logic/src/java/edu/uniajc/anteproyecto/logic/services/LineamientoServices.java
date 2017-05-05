@@ -27,11 +27,11 @@ import javax.sql.DataSource;
 public class LineamientoServices implements ILineamiento{
 
     @Override
-    public boolean createLineamiento(int ID, String descripcion, String dreadoPor, Date creadoEn, String modificadoPor, Date modificadoEn) {
+    public boolean createLineamiento(Lineamiento lineamiento) {
         try {
 
             // validacion de Data
-            if (! String.valueOf(ID).equals("") && !descripcion.equals("") && !dreadoPor.equals("") && (!String.valueOf(creadoEn).equals("")) && !modificadoPor.equals("")&& (!String.valueOf(modificadoEn).equals("")))
+            if (lineamiento != null)
             {
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
                // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
@@ -40,11 +40,11 @@ public class LineamientoServices implements ILineamiento{
                 	
 
                 
-                Lineamiento lineamiento = dao.createLineamiento(ID, descripcion, dreadoPor, creadoEn, modificadoPor, modificadoEn);
+                Lineamiento lineamientoReturn = dao.createLineamiento(lineamiento);
                 
                
                         
-                return (lineamiento == null ? false :
+                return (lineamientoReturn == null ? false :
                         true);
             } else {
                 System.out.println("Faltan Datos en pantalla");

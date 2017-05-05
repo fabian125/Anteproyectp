@@ -27,15 +27,9 @@ public class LineamientoDAO {
         this.DBConnection = openConnection;
     }
 
-    public Lineamiento createLineamiento(int ID, String descripcion, String creadoPor, Date creadoEn, String modificadoPor, Date modificadoEn) {
+    public Lineamiento createLineamiento(Lineamiento lineamiento) {
         try {
-            Lineamiento lineamiento = new Lineamiento();
-            lineamiento.setID(ID);
-            lineamiento.setDescripcion(descripcion);
-            lineamiento.setCreadoPor(creadoPor);
-            lineamiento.setCreadoEn(creadoEn);
-            lineamiento.setModificadoPor(modificadoPor);
-            lineamiento.setModificadoEn(modificadoEn);
+            
 
             PreparedStatement ps = null;
 
