@@ -33,7 +33,10 @@ public class LineamientoDetalleBean {
      //Combos
     private ArrayList<SelectItem> itemsLineamiento;
     private String v_select_lineamiento;
-
+    
+    //Falta Poner corte como un combo, pero no tenemos modelo de lista valor
+     //private ArrayList<SelectItem> itemsCorte;
+     //private String v_select_lineamiento;
     
 
     public LineamientoDetalleBean() {
