@@ -35,7 +35,7 @@ public class LineamientoServices implements ILineamiento{
             {
                 // se adquiere la conexion a base de datos desde el servidor de aplicaciones
                // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
-                 ConexionBD cn = new ConexionBD();
+                ConexionBD cn = new ConexionBD();
                 LineamientoDAO dao = new LineamientoDAO(cn.conexion());
                 	
 
@@ -47,7 +47,9 @@ public class LineamientoServices implements ILineamiento{
                 return (lineamiento == null ? false :
                         true);
             } else {
+                System.out.println("Faltan Datos en pantalla");
                 return false;
+                
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
