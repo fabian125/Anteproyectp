@@ -19,8 +19,11 @@ public interface ILineamientoDetalle {
     
     public boolean createLineamientoDetalle(LineamientoDetalle lineamientoDetalle);
     public boolean deleteLineamientoDetalle(int ID);
+
     public boolean updateLineamientoDetalle(LineamientoDetalle lineamientoDetalle);
     public List<LineamientoDetalle> getLineamientoDetalleByLineamiento(int lineamiento);
     public LineamientoDetalle getLineamientoDetalleById(int id);
     public ArrayList<LineamientoDetalle> getLineamientosDetalle();
+    
+    
 }
