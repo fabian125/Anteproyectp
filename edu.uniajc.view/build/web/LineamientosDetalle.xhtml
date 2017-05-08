@@ -129,7 +129,10 @@
 
                       <!-- Editar -->
                         <p:column style="width:30px">
-                          <p:rowEditor />
+                             <p:commandButton 
+                              update=":forma:grow,:forma2:listaLineamientoDetalle"
+                              ajax="true" icon="ui-icon-pencil"
+                              action="#{lineamientoDetalleBean.modificar(lineamientoDetalle.id)}" />
                         </p:column>
                         <!-- Borrar -->
                         <p:column headerText="" style="width:30px" >
