@@ -30,8 +30,11 @@ public class LineamientoDetalleBean {
     private LineamientoDetalle lineamientoDetalle;
     private List<LineamientoDetalle> listalineamientoDetalle;
     
+    
      //Combos
     private ArrayList<SelectItem> itemsLineamiento;
+    private ArrayList<SelectItem> itemsCorte;
+    private String v_select_corte;
     private String v_select_lineamiento;
     
     //Falta Poner corte como un combo, pero no tenemos modelo de lista valor
@@ -43,6 +46,7 @@ public class LineamientoDetalleBean {
         lineamientoDetalle = new LineamientoDetalle();
         servicios = new LineamientoDetalleServices();
         itemsLineamiento = Consultar_Lineamiento_combo();
+        itemsCorte=Consultar_Corte_combo();
        // listalineamientoDetalle = servicios.getLineamientosDetalle();
        //listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
     }
@@ -56,6 +60,18 @@ public class LineamientoDetalleBean {
         }
         return items;
     }
+    
+    public ArrayList<SelectItem> Consultar_Corte_combo() {
+         ListaValorDetalleServices serviciosLine =new ListaValorDetalleServices();
+        
+        List<ListaValoresDetalle> lista = serviciosLine.getListaValorDetallebyID_Lista_Valor(1);
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        for (ListaValoresDetalle obj : (ArrayList<ListaValoresDetalle>) lista) {
+            items.add(new SelectItem(obj.getId(), obj.getDescripcion()));
+        }
+        return items;
+    }
+    
     public void limpiarForma() {
         lineamientoDetalle = new LineamientoDetalle();
         listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
@@ -70,6 +86,10 @@ public class LineamientoDetalleBean {
         lineamientoDetalle.setCreadoPor("Leon");
         lineamientoDetalle.setModificadoPor("Leon");
         lineamientoDetalle.setIdLineamiento(Integer.parseInt(v_select_lineamiento));
+        lineamientoDetalle.setCorte(Integer.parseInt(v_select_corte));
+        
+if(lineamientoDetalle.getPorcentaje() > 0 &&  lineamientoDetalle.getPorcentaje() <= 100 &&  calcularProcentaje() <= 100 ){
+    
 
         if (servicios.createLineamientoDetalle(lineamientoDetalle)) {
 
@@ -81,9 +101,24 @@ public class LineamientoDetalleBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }
+}else{
+   FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Porcentaje debe ser mayor a 0 y menor que 10");
+            FacesContext.getCurrentInstance().addMessage(null, msg); 
+}
+    
 
     }
 
+    
+    public Double calcularProcentaje(){
+        Double procentaje=0.0;
+        for(int i =0; i< listalineamientoDetalle.size(); i++){
+            procentaje+=listalineamientoDetalle.get(i).getPorcentaje();
+        }
+        
+        return procentaje+lineamientoDetalle.getPorcentaje();
+    }
+    
     public void modificar(RowEditEvent event) {
 
         Object ob = event.getObject();
@@ -169,6 +204,22 @@ public class LineamientoDetalleBean {
 
     public void setV_select_lineamiento(String v_select_lineamiento) {
         this.v_select_lineamiento = v_select_lineamiento;
+    }
+
+    public ArrayList<SelectItem> getItemsCorte() {
+        return itemsCorte;
+    }
+
+    public void setItemsCorte(ArrayList<SelectItem> itemsCorte) {
+        this.itemsCorte = itemsCorte;
+    }
+
+    public String getV_select_corte() {
+        return v_select_corte;
+    }
+
+    public void setV_select_corte(String v_select_corte) {
+        this.v_select_corte = v_select_corte;
     }
 
 }

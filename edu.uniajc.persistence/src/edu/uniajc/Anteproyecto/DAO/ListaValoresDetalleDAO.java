@@ -45,7 +45,7 @@ public class ListaValoresDetalleDAO {
                 ListaValoresDetalle listaValorDetalle = new ListaValoresDetalle();
 
                 listaValorDetalle.setId(rs.getInt("ID"));
-                listaValorDetalle.setId_T_Listavalores(rs.getInt("id_ListaValor"));
+                listaValorDetalle.setId_T_Listavalores(rs.getInt("ID_T_LISTAVALORES"));
                 listaValorDetalle.setDescripcion(rs.getString("DESCRIPCION"));
                 listaValorDetalle.setValor(rs.getString("VALOR"));
                 listaValorDetalle.setCreadoPor(rs.getString("CREADOPOR"));
@@ -58,7 +58,7 @@ public class ListaValoresDetalleDAO {
             ps.close();
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en  Lineamiento Detalle DAO "+ e.getMessage());
+            System.out.println("Error en  ListaValoresDetalle DAO "+ e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
