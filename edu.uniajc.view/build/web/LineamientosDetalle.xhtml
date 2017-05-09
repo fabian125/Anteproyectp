@@ -20,21 +20,23 @@
                     <h:panelGrid columns="4" cellpadding="5">
                         
                          <p:outputLabel for="add_1" value="Lineamiento :" />
-                         <p:selectOneMenu  id="add_1" value="#{lineamientoDetalleBean.v_select_lineamiento}">  
+                         <p:selectOneMenu  id="add_1" value="#{lineamientoDetalleBean.v_select_lineamiento}" required="true" requiredMessage="Campo requerido">  
                              <p:ajax listener="#{lineamientoDetalleBean.llenarlista}" update=":forma2:listaLineamientoDetalle,:forma:tab:add_5" />   
                              <f:selectItem itemLabel="Seleccione" itemValue="" />  
                                 <f:selectItems value="#{lineamientoDetalleBean.itemsLineamiento}"/>  
                         </p:selectOneMenu>
                         
                         <p:outputLabel for="add_2" value="Descripcion :" />
-                        <p:inputText   id="add_2" value="#{lineamientoDetalleBean.lineamientoDetalle.descripcion}" />                       
+                        <p:inputText   id="add_2" value="#{lineamientoDetalleBean.lineamientoDetalle.descripcion}" 
+                                       required="true" requiredMessage="Campo requerido"/>                       
                         
                         <p:outputLabel for="add_3" value="Porcentaje :" />
-                        <p:inputText   id="add_3" value="#{lineamientoDetalleBean.lineamientoDetalle.porcentaje}" /> 
+                        <p:spinner   id="add_3" value="#{lineamientoDetalleBean.lineamientoDetalle.porcentaje}"  min="1" max="100" required="true" requiredMessage="Campo requerido">
+                        </p:spinner>
                         
                         <p:outputLabel for="add_4" value="Corte :" />
                         
-                        <p:selectOneMenu  id="add_4" value="#{lineamientoDetalleBean.v_select_corte}">  
+                        <p:selectOneMenu  id="add_4" value="#{lineamientoDetalleBean.v_select_corte}" required="true" requiredMessage="Campo requerido">  
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />  
                                 <f:selectItems value="#{lineamientoDetalleBean.itemsCorte}"/>  
                         </p:selectOneMenu> 
@@ -66,7 +68,7 @@
                         paginatorPosition="bottom"
                         >
 
-                       <p:ajax event="rowEdit" listener="#{lineamientoDetalleBean.modificar}" update=":forma:grow" />
+                       <p:ajax event="rowEdit" listener="#{lineamientoDetalleBean.modificar}" update=":forma:tab:add_5,:forma:grow" />
 
                       <p:column headerText="Codigo Lineamiento">
                           <p:outputLabel value="#{lineamientoDetalle.id}"></p:outputLabel>
@@ -77,7 +79,7 @@
                          <p:cellEditor>
                              <f:facet name="output"><h:outputText value="#{lineamientoDetalle.idLineamiento}" /></f:facet>
                            <f:facet name="input">
-                               <h:selectOneMenu value="#{lineamientoDetalle.idLineamiento}">  
+                               <h:selectOneMenu value="#{lineamientoDetalle.idLineamiento}" required="true" requiredMessage="Campo requerido">  
                                    <f:selectItems value="#{lineamientoDetalleBean.itemsLineamiento}"/>  
                               </h:selectOneMenu> 
                            </f:facet>
@@ -89,16 +91,16 @@
                              <p:cellEditor>
                                  <f:facet name="output"><h:outputText value="#{lineamientoDetalle.descripcion}" /></f:facet>
                                <f:facet name="input">
-                                  <p:inputText id="modeldescripcion" value="#{lineamientoDetalle.descripcion}" />
+                                  <p:inputText id="modeldescripcion" value="#{lineamientoDetalle.descripcion}" required="true" requiredMessage="Campo requerido" />
                                </f:facet>
                             </p:cellEditor>
 			</p:column>
                        
-                       <p:column  headerText="Porcentaje ">
+                       <p:column style="width:150px" headerText="Porcentaje ">
                              <p:cellEditor>
                                  <f:facet name="output"><h:outputText value="#{lineamientoDetalle.porcentaje}" /></f:facet>
                                <f:facet name="input">
-                                   <p:inputText id="modelporcentaje" value="#{lineamientoDetalle.porcentaje}" />
+                                   <p:spinner id="modelporcentaje" value="#{lineamientoDetalle.porcentaje}" min="1" max="100" required="true" requiredMessage="Campo requerido" />
                                </f:facet>
                             </p:cellEditor>
 			</p:column>
@@ -108,7 +110,7 @@
                          <p:cellEditor>
                              <f:facet name="output"><h:outputText value="#{lineamientoDetalle.corte}" /></f:facet>
                            <f:facet name="input">
-                               <h:selectOneMenu value="#{lineamientoDetalle.corte}">  
+                               <h:selectOneMenu value="#{lineamientoDetalle.corte}" required="true" requiredMessage="Campo requerido">  
                                    <f:selectItems value="#{lineamientoDetalleBean.itemsCorte}"/>  
                               </h:selectOneMenu> 
                            </f:facet>
@@ -151,7 +153,7 @@
                         <!-- Borrar -->
                         <p:column headerText="" style="width:30px" >
                             <p:commandButton 
-                              update=":forma:grow,:forma2:listaLineamientoDetalle"
+                              update=":forma:grow,:forma:tab:add_5,:forma2:listaLineamientoDetalle"
                               ajax="true" icon="ui-icon-trash"
                               action="#{lineamientoDetalleBean.eliminar(lineamientoDetalle.id)}" />
 			</p:column> 

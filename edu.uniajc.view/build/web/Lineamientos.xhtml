@@ -19,7 +19,7 @@
                 <p:tab title="Gestion Lineamientos"> <!-- Nombre  -->
                     <h:panelGrid columns="4" cellpadding="5">
                         <p:outputLabel for="add_1" value="Descripcion :" />
-                        <p:inputText   id="add_1" value="#{lineamientoBean.lineamiento.descripcion}" />                       
+                        <p:inputText   id="add_1" value="#{lineamientoBean.lineamiento.descripcion}" required="true" requiredMessage="Campo requerido"/>                       
                     </h:panelGrid>
                     <p:separator />
                     

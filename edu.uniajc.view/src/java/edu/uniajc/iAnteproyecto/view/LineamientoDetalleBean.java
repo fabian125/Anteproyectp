@@ -78,7 +78,11 @@ public class LineamientoDetalleBean {
     public void limpiarForma() {
         lineamientoDetalle = new LineamientoDetalle();
         listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
-        //v_select_lineamiento="";
+        
+    }
+    public void limpiarCombox(){
+        v_select_lineamiento="";
+        v_select_corte="";
     }
 
     public void crear() {
@@ -91,7 +95,7 @@ public class LineamientoDetalleBean {
         lineamientoDetalle.setIdLineamiento(Integer.parseInt(v_select_lineamiento));
         lineamientoDetalle.setCorte(Integer.parseInt(v_select_corte));
         
-if(lineamientoDetalle.getPorcentaje() > 0 &&  lineamientoDetalle.getPorcentaje() <= 100 &&  calcularProcentaje() <= 100 ){
+if(calcularProcentaje() <= 100 ){
     
 
         if (servicios.createLineamientoDetalle(lineamientoDetalle)) {
@@ -99,6 +103,8 @@ if(lineamientoDetalle.getPorcentaje() > 0 &&  lineamientoDetalle.getPorcentaje()
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             limpiarForma();
+             llenarlista();
+             limpiarCombox();
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -142,10 +148,13 @@ if(lineamientoDetalle.getPorcentaje() > 0 &&  lineamientoDetalle.getPorcentaje()
         ln.setModificadoPor("Leon");
 
         if (servicios.updateLineamientoDetalle(ln)) {
-
+            llenarlista();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            
+           
         } else {
+            llenarlista();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realziar la operación");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -158,13 +167,15 @@ if(lineamientoDetalle.getPorcentaje() > 0 &&  lineamientoDetalle.getPorcentaje()
                 
                 if (servicios.deleteLineamientoDetalle(IdLineamiento)) {
                     flag = true;
+                    
                     break;
 
                 }
             }
         }
-        listalineamientoDetalle =  servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
+        
         if (flag) {
+            llenarlista();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Lineamiento Fue eliminado con exito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
