@@ -21,7 +21,7 @@
                         
                          <p:outputLabel for="add_1" value="Lineamiento :" />
                          <p:selectOneMenu  id="add_1" value="#{lineamientoDetalleBean.v_select_lineamiento}">  
-                             <p:ajax listener="#{lineamientoDetalleBean.llenarlista}" update=":forma2:listaLineamientoDetalle" />   
+                             <p:ajax listener="#{lineamientoDetalleBean.llenarlista}" update=":forma2:listaLineamientoDetalle,:forma:tab:add_5" />   
                              <f:selectItem itemLabel="Seleccione" itemValue="" />  
                                 <f:selectItems value="#{lineamientoDetalleBean.itemsLineamiento}"/>  
                         </p:selectOneMenu>
@@ -38,13 +38,16 @@
                                 <f:selectItem itemLabel="Seleccione" itemValue="" />  
                                 <f:selectItems value="#{lineamientoDetalleBean.itemsCorte}"/>  
                         </p:selectOneMenu> 
+                        
+                        <p:outputLabel for="add_5" value="Porcentaje Actual :" />
+                        <p:inputText   id="add_5" value="#{lineamientoDetalleBean.porcentajeActual}" readonly="true"/> 
                          
                     </h:panelGrid>
                     <p:separator />
                     
                     <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
                     <p:commandButton 
-                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma2:listaLineamientoDetalle"
+                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_5,:forma2:listaLineamientoDetalle"
                         ajax="true" value="Crear" action="#{lineamientoDetalleBean.crear}"
                                       />
                 </p:tab>
@@ -70,7 +73,7 @@
                   
 			</p:column>
                        
-                       <p:column style="width:150px" headerText="Lineamientos" >
+                       <p:column style="width:100px" headerText="Lineamientos" >
                          <p:cellEditor>
                              <f:facet name="output"><h:outputText value="#{lineamientoDetalle.idLineamiento}" /></f:facet>
                            <f:facet name="input">
@@ -90,6 +93,7 @@
                                </f:facet>
                             </p:cellEditor>
 			</p:column>
+                       
                        <p:column  headerText="Porcentaje ">
                              <p:cellEditor>
                                  <f:facet name="output"><h:outputText value="#{lineamientoDetalle.porcentaje}" /></f:facet>
@@ -99,14 +103,18 @@
                             </p:cellEditor>
 			</p:column>
                        
-                       <p:column  headerText="Corte ">
-                             <p:cellEditor>
-                                 <f:facet name="output"><h:outputText value="#{lineamientoDetalle.corte}" /></f:facet>
-                               <f:facet name="input">
-                                   <p:inputText id="modelcorte" value="#{lineamientoDetalle.corte}" />
-                               </f:facet>
-                            </p:cellEditor>
-			</p:column>
+                                             
+                       <p:column style="width:50px" headerText="Corte" >
+                         <p:cellEditor>
+                             <f:facet name="output"><h:outputText value="#{lineamientoDetalle.corte}" /></f:facet>
+                           <f:facet name="input">
+                               <h:selectOneMenu value="#{lineamientoDetalle.corte}">  
+                                   <f:selectItems value="#{lineamientoDetalleBean.itemsCorte}"/>  
+                              </h:selectOneMenu> 
+                           </f:facet>
+                         </p:cellEditor>
+			</p:column> 
+                       
                        <p:column headerText="Creado Por">
                           <p:outputLabel value="#{lineamientoDetalle.creadoPor}"></p:outputLabel>
                   
@@ -130,12 +138,15 @@
 
 			
 
-                      <!-- Editar -->
+                      <!-- Editar 
                         <p:column style="width:30px">
                              <p:commandButton 
                               update=":forma:grow,:forma2:listaLineamientoDetalle"
                               ajax="true" icon="ui-icon-pencil"
                               action="#{lineamientoDetalleBean.modificar(lineamientoDetalle.id)}" />
+                        </p:column>-->
+                      <p:column style="width:30px">
+                          <p:rowEditor />
                         </p:column>
                         <!-- Borrar -->
                         <p:column headerText="" style="width:30px" >

@@ -37,6 +37,9 @@ public class LineamientoDetalleBean {
     private String v_select_corte;
     private String v_select_lineamiento;
     
+    private Double porcentajeActual;
+    
+    
     //Falta Poner corte como un combo, pero no tenemos modelo de lista valor
      //private ArrayList<SelectItem> itemsCorte;
      //private String v_select_lineamiento;
@@ -67,7 +70,7 @@ public class LineamientoDetalleBean {
         List<ListaValoresDetalle> lista = serviciosLine.getListaValorDetallebyID_Lista_Valor(1);
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (ListaValoresDetalle obj : (ArrayList<ListaValoresDetalle>) lista) {
-            items.add(new SelectItem(obj.getId(), obj.getDescripcion()));
+            items.add(new SelectItem(obj.getValor(), obj.getDescripcion()));
         }
         return items;
     }
@@ -118,6 +121,14 @@ if(lineamientoDetalle.getPorcentaje() > 0 &&  lineamientoDetalle.getPorcentaje()
         
         return procentaje+lineamientoDetalle.getPorcentaje();
     }
+     public Double calcularProcentajeActual(){
+        Double procentaje=0.0;
+        for(int i =0; i< listalineamientoDetalle.size(); i++){
+            procentaje+=listalineamientoDetalle.get(i).getPorcentaje();
+        }
+        
+        return procentaje;
+    }
     
     public void modificar(RowEditEvent event) {
 
@@ -164,6 +175,7 @@ if(lineamientoDetalle.getPorcentaje() > 0 &&  lineamientoDetalle.getPorcentaje()
     
     public void llenarlista (){
         listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
+        porcentajeActual=calcularProcentajeActual();
     }
 
     public LineamientoDetalleServices getServicios() {
@@ -220,6 +232,14 @@ if(lineamientoDetalle.getPorcentaje() > 0 &&  lineamientoDetalle.getPorcentaje()
 
     public void setV_select_corte(String v_select_corte) {
         this.v_select_corte = v_select_corte;
+    }
+
+    public Double getPorcentajeActual() {
+        return porcentajeActual;
+    }
+
+    public void setPorcentajeActual(Double porcentajeActual) {
+        this.porcentajeActual = porcentajeActual;
     }
 
 }
