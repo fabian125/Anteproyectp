@@ -20,6 +20,7 @@
                     <h:panelGrid columns="4" cellpadding="5">
                         
                          <p:outputLabel for="add_1" value="Lineamiento :" />
+                         
                          <p:selectOneMenu  id="add_1" value="#{lineamientoDetalleBean.v_select_lineamiento}" required="true" requiredMessage="Campo requerido">  
                              <p:ajax listener="#{lineamientoDetalleBean.llenarlista}" update=":forma2:listaLineamientoDetalle,:forma:tab:add_5" />   
                              <f:selectItem itemLabel="Seleccione" itemValue="" />  
@@ -43,6 +44,9 @@
                         
                         <p:outputLabel for="add_5" value="Porcentaje Actual :" />
                         <p:inputText   id="add_5" value="#{lineamientoDetalleBean.porcentajeActual}" readonly="true"/> 
+                        
+                         
+                        
                          
                     </h:panelGrid>
                     <p:separator />
@@ -51,7 +55,10 @@
                     <p:commandButton 
                         update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_5,:forma2:listaLineamientoDetalle"
                         ajax="true" value="Crear" action="#{lineamientoDetalleBean.crear}"
+                        
                                       />
+                              
+                    
                 </p:tab>
 
             </p:tabView>
@@ -147,19 +154,31 @@
                               ajax="true" icon="ui-icon-pencil"
                               action="#{lineamientoDetalleBean.modificar(lineamientoDetalle.id)}" />
                         </p:column>-->
-                      <p:column style="width:30px">
+                      <p:column style="width:30px" exportable="false">
                           <p:rowEditor />
                         </p:column>
                         <!-- Borrar -->
-                        <p:column headerText="" style="width:30px" >
+                        <p:column headerText="" style="width:30px" exportable="false" >
                             <p:commandButton 
                               update=":forma:grow,:forma:tab:add_5,:forma2:listaLineamientoDetalle"
                               ajax="true" icon="ui-icon-trash"
                               action="#{lineamientoDetalleBean.eliminar(lineamientoDetalle.id)}" />
 			</p:column> 
-
+                        
+                
 		</p:dataTable>
-
+            
+                             <h:commandLink>
+                            <h:graphicImage url="resources/image/XLS.png" width="50"/>
+                            <p:dataExporter type="xls" target="listaLineamientoDetalle" fileName="Lineamientos"/>
+                            </h:commandLink>
+            
+                            <h:commandLink>
+                            <h:graphicImage url="resources/image/pdf.png" width="50"/>
+                            <p:dataExporter type="pdf" target="listaLineamientoDetalle" fileName="Lineamientos"/>
+                            </h:commandLink>
+           
+                           
 	</h:form>
             </ui:define>
 

@@ -89,9 +89,9 @@ public class LineamientoDetalleBean {
        Date fecha = new Date();
         java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
         lineamientoDetalle.setCreadoEn(fechaSQL);
-        lineamientoDetalle.setModificadoEn(fechaSQL);
+        //lineamientoDetalle.setModificadoEn(fechaSQL);
         lineamientoDetalle.setCreadoPor("Leon");
-        lineamientoDetalle.setModificadoPor("Leon");
+        //lineamientoDetalle.setModificadoPor("Leon");
         lineamientoDetalle.setIdLineamiento(Integer.parseInt(v_select_lineamiento));
         lineamientoDetalle.setCorte(Integer.parseInt(v_select_corte));
         
@@ -144,7 +144,7 @@ if(calcularProcentaje() <= 100 ){
         java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
         //ln.setCreadoEn(fechaSQL);
         ln.setModificadoEn(fechaSQL);
-        ln.setCreadoPor("Leon");
+        //ln.setCreadoPor("Leon");
         ln.setModificadoPor("Leon");
 
         if (servicios.updateLineamientoDetalle(ln)) {
