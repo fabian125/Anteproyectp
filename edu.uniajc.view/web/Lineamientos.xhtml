@@ -55,7 +55,7 @@
                              <p:cellEditor>
                                  <f:facet name="output"><h:outputText value="#{lineamiento.descripcion}" /></f:facet>
                                <f:facet name="input">
-                                  <p:inputText id="modeldescripcion" value="#{lineamiento.descripcion}" />
+                                  <p:inputText id="modeldescripcion" value="#{lineamiento.descripcion}" required="true" requiredMessage="Campo requerido" />
                                </f:facet>
                             </p:cellEditor>
 			</p:column>
