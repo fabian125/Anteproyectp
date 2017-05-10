@@ -73,13 +73,19 @@
                         rows="20" 
                         editable="true"
                         paginatorPosition="bottom"
+                        widgetVar="tabla"
                         >
-
+                
+                
+             
+                        
                        <p:ajax event="rowEdit" listener="#{lineamientoDetalleBean.modificar}" update=":forma:tab:add_5,:forma:grow" />
 
-                      <p:column headerText="Codigo Lineamiento">
-                          <p:outputLabel value="#{lineamientoDetalle.id}"></p:outputLabel>
-                  
+                       <p:column style="width:110px" headerText="Codigo Lineamiento" filterBy="#{lineamientoDetalle.id}"  filterMatchMode="contains" >
+                           <p:outputLabel value="#{lineamientoDetalle.id}"></p:outputLabel>
+                         
+                           
+                          
 			</p:column>
                        
                        <p:column style="width:100px" headerText="Lineamientos" >
@@ -94,7 +100,7 @@
 			</p:column> 
                        
                        
-			<p:column  headerText="Descripciones ">
+			<p:column style="width:100px" headerText="Descripciones ">
                              <p:cellEditor>
                                  <f:facet name="output"><h:outputText value="#{lineamientoDetalle.descripcion}" /></f:facet>
                                <f:facet name="input">
@@ -103,7 +109,7 @@
                             </p:cellEditor>
 			</p:column>
                        
-                       <p:column style="width:150px" headerText="Porcentaje ">
+                       <p:column style="width:100px" headerText="Porcentaje ">
                              <p:cellEditor>
                                  <f:facet name="output"><h:outputText value="#{lineamientoDetalle.porcentaje}" /></f:facet>
                                <f:facet name="input">
@@ -124,22 +130,22 @@
                          </p:cellEditor>
 			</p:column> 
                        
-                       <p:column headerText="Creado Por">
+                       <p:column  headerText="Creado Por">
                           <p:outputLabel value="#{lineamientoDetalle.creadoPor}"></p:outputLabel>
                   
 			</p:column>
                     
-                       <p:column headerText="Creado En">
+                       <p:column  headerText="Creado En">
                           <p:outputLabel value="#{lineamientoDetalle.creadoEn}"></p:outputLabel>
                   
 			</p:column>
                         
-                       <p:column headerText="Modificado Por">
+                       <p:column  headerText="Modificado Por">
                           <p:outputLabel value="#{lineamientoDetalle.modificadoPor}"></p:outputLabel>
                   
 			</p:column>
                        
-                          <p:column headerText="Modificado En">
+                          <p:column  headerText="Modificado En">
                           <p:outputLabel value="#{lineamientoDetalle.modificadoEn}"></p:outputLabel>
                   
 			</p:column>               
