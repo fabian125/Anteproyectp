@@ -5,6 +5,7 @@
  */
 package edu.uniajc.Anteproyecto.DAO;
 
+import edu.uniajc.anteproyecto.interfaces.ILineamiento;
 import edu.uniajc.anteproyecto.interfaces.model.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,15 +21,15 @@ import java.util.logging.Logger;
  *
  * @author Leon
  */
-public class LineamientoDAO {
+public class LineamientoDAO implements ILineamiento{
 
     private Connection DBConnection = null;
 
     public LineamientoDAO(Connection openConnection) {
         this.DBConnection = openConnection;
     }
-
-    public Lineamiento createLineamiento(Lineamiento lineamiento) {
+ @Override
+    public boolean createLineamiento(Lineamiento lineamiento) {
         try {
            
 
@@ -49,18 +51,18 @@ public class LineamientoDAO {
             ps.execute();
             ps.close();
             //combo.setCodigo(id);            
-            return lineamiento;
+            return true;
         } catch (SQLException e) {
             System.out.println("Error en LineamientoDao" + e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
-            return null;
+            return false;
         }
 
     }
 
     
-    
-    public ArrayList<Lineamiento> getLineamientos() throws SQLException {
+     @Override
+    public ArrayList<Lineamiento> getLineamientos() {
         ArrayList<Lineamiento> list = new ArrayList<Lineamiento>();
         try {
 
@@ -88,8 +90,8 @@ public class LineamientoDAO {
         }
 
     }
-    
-    public ArrayList<Lineamiento> getLineamientoByDirector(String director) throws SQLException {
+     @Override
+    public ArrayList<Lineamiento> getLineamientoByDirector(String director)  {
         ArrayList<Lineamiento> list = new ArrayList<Lineamiento>();
         try {
 
@@ -117,8 +119,8 @@ public class LineamientoDAO {
         }
 
     }
-    
-    public Lineamiento getLineamientoById(int id) throws SQLException {
+     @Override
+    public Lineamiento getLineamientoById(int id) {
         
         Lineamiento lineamiento = new Lineamiento();
         try {
@@ -148,8 +150,8 @@ public class LineamientoDAO {
         }
 
     }
-    
-    public Boolean deleteLineamiento(int id) {
+     @Override
+    public boolean deleteLineamiento(int id) {
         try {
            
 
@@ -174,7 +176,8 @@ public class LineamientoDAO {
         }
 
     }
-    public Boolean updateLineamiento(Lineamiento lineamiento) {
+     @Override
+    public boolean updateLineamiento(Lineamiento lineamiento) {
         try {
            
 
@@ -203,6 +206,11 @@ public class LineamientoDAO {
             return false;
         }
 
+    }
+
+    @Override
+    public List<Lineamiento> getLineamientoByFacultad(String facultad) {
+        return null;
     }
     
 }

@@ -40,12 +40,11 @@ public class LineamientoServices implements ILineamiento{
                 	
 
                 
-                Lineamiento lineamientoReturn = dao.createLineamiento(lineamiento);
+                boolean flag = dao.createLineamiento(lineamiento);
                  cn.conexion().close();
                
                         
-                return (lineamientoReturn == null ? false :
-                        true);
+                return flag;
             } else {
                 System.out.println("Faltan Datos en pantalla");
                 return false;

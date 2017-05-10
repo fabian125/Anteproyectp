@@ -5,6 +5,7 @@
  */
 package edu.uniajc.Anteproyecto.DAO;
 
+import edu.uniajc.anteproyecto.interfaces.ILineamientoDetalle;
 import edu.uniajc.anteproyecto.interfaces.model.LineamientoDetalle;
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,15 +21,15 @@ import java.util.logging.Logger;
  *
  * @author Leon
  */
-public class LineamientoDetalleDAO {
+public class LineamientoDetalleDAO implements ILineamientoDetalle{
 
     private Connection DBConnection = null;
 
     public LineamientoDetalleDAO(Connection openConnection) {
         this.DBConnection = openConnection;
     }
-
-    public LineamientoDetalle createLineamientoDetalle(LineamientoDetalle lineamientoDetalle) {
+     @Override
+    public boolean createLineamientoDetalle(LineamientoDetalle lineamientoDetalle) {
         try {
              
 
@@ -53,17 +54,18 @@ public class LineamientoDetalleDAO {
             ps.execute();
             ps.close();
 
-            //combo.setCodigo(id);            
-            return lineamientoDetalle;
+            //combo.setCodigo(id);  
+            
+            return true ;
         } catch (SQLException e) {
             System.out.println("Error en  Lineamiento Detalle DAO "+ e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
-            return null;
+            return false;
         }
 
     }
-
-    public List<LineamientoDetalle> getLineamientoDetalleByLineamiento(int lineamiento) throws SQLException {
+     @Override
+    public List<LineamientoDetalle> getLineamientoDetalleByLineamiento(int lineamiento)  {
         ArrayList<LineamientoDetalle> list = new ArrayList<LineamientoDetalle>();
         try {
 
@@ -96,8 +98,8 @@ public class LineamientoDetalleDAO {
         }
 
     }
-
-    public LineamientoDetalle getLineamientoDetalleById(int id) throws SQLException {
+     @Override
+    public LineamientoDetalle getLineamientoDetalleById(int id)  {
 
         LineamientoDetalle lineamientoDetalle = new LineamientoDetalle();
         try {
@@ -130,7 +132,7 @@ public class LineamientoDetalleDAO {
         }
 
     }
-
+     @Override
     public ArrayList<LineamientoDetalle> getLineamientosDetalle() {
 
         ArrayList<LineamientoDetalle> list = new ArrayList<LineamientoDetalle>();
@@ -163,7 +165,7 @@ public class LineamientoDetalleDAO {
         }
 
     }
-
+     @Override
     public boolean deleteLineamientoDetalle(int ID){
          try {
            
@@ -189,6 +191,7 @@ public class LineamientoDetalleDAO {
             return false;
         }
     }
+     @Override
     public boolean updateLineamientoDetalle(LineamientoDetalle lineamientoDetalle){
         try {
            

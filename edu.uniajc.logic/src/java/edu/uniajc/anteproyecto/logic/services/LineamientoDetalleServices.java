@@ -36,12 +36,11 @@ public class LineamientoDetalleServices implements ILineamientoDetalle{
                 	
 
                 
-                LineamientoDetalle lineamientoDetalleReturn = dao.createLineamientoDetalle(lineamientoDetalle);
+               boolean flag = dao.createLineamientoDetalle(lineamientoDetalle);
                 cn.conexion().close();
                
                         
-                return (lineamientoDetalleReturn == null ? false :
-                        true);
+                return flag;
             } else {
                 return false;
             }
