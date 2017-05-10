@@ -81,7 +81,7 @@ public class LineamientoDetalleBean {
         
     }
     public void limpiarCombox(){
-        v_select_lineamiento="";
+        //v_select_lineamiento="";
         v_select_corte="";
     }
 
