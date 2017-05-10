@@ -12,7 +12,7 @@ nbproject/
 *.out
 
 # Package Files #
-*.jar
+#*.jar
 *.war
 *.ear
 /edu.uniajc.interfaces/build/
