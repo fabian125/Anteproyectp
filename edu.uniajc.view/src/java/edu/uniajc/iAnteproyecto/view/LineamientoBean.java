@@ -5,16 +5,30 @@
  */
 package edu.uniajc.iAnteproyecto.view;
 
+import edu.uniajc.Anteproyecto.util.LeerPropiedades;
+import edu.uniajc.anteproyecto.interfaces.ILineamiento;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import edu.uniajc.anteproyecto.interfaces.model.*;
 import edu.uniajc.anteproyecto.logic.services.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.Map;
+import javax.enterprise.inject.spi.Bean;
+
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import static oracle.sql.NUMBER.e;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -22,12 +36,14 @@ import org.primefaces.event.RowEditEvent;
  * @author Leon
  */
 @ManagedBean(name = "lineamientoBean")
-@RequestScoped
+@ViewScoped
 public class LineamientoBean {
 
-    private LineamientoServices servicios;
+    private ILineamiento servicios;
     private Lineamiento lineamiento;
     private List<Lineamiento> listalineamiento;
+    private String config = "LineamientoServices";
+    private LeerPropiedades leer = new LeerPropiedades();
 
     public Lineamiento getLineamiento() {
         return lineamiento;
@@ -46,31 +62,40 @@ public class LineamientoBean {
     }
 
     public LineamientoServices getServicios() {
-        return servicios;
+        return null;
     }
 
     public void setServicios(LineamientoServices servicios) {
         this.servicios = servicios;
     }
 
-    public LineamientoBean() {
+    public LineamientoBean() throws NamingException {
+        InitialContext ctx = new InitialContext();
         lineamiento = new Lineamiento();
-        servicios = new LineamientoServices();
+        //servicios =  (ILineamiento) ctx.lookup("java:global/edu.uniajc.view/LineamientoServices!edu.uniajc.anteproyecto.interfaces.ILineamiento");
+        servicios = (ILineamiento) ctx.lookup(leer.leerArchivo(config));
         listalineamiento = servicios.getLineamientos();
     }
 
-    public void limpiarForma() {
+   /*public String navega() throws NamingException {
+     FacesContext context = javax.faces.context.FacesContext.getCurrentInstance();
+     HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        LineamientoDetalleBean nB =(LineamientoDetalleBean) session.getAttribute("id_Lin");
+        return "LineamientosDetalle.xhtml";
+    
+}*/
+
+public void limpiarForma() {
         lineamiento = new Lineamiento();
         listalineamiento = servicios.getLineamientos();
     }
 
     public void crear() {
-       Date fecha = new Date();
-        java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-        lineamiento.setCreadoEn(fechaSQL);
-        lineamiento.setModificadoEn(fechaSQL);
+      
+       // lineamiento.setCreadoEn(fechaSQL);
+       // lineamiento.setModificadoEn(fechaSQL);
         lineamiento.setCreadoPor("Leon");
-        lineamiento.setModificadoPor("Leon");
+        //lineamiento.setModificadoPor("Leon");
 
         if (servicios.createLineamiento(lineamiento)) {
 
@@ -89,11 +114,10 @@ public class LineamientoBean {
 
         Object ob = event.getObject();
         Lineamiento ln = (Lineamiento) ob;
-         Date fecha = new Date();
-        java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+         
         //ln.setCreadoEn(fechaSQL);
-        ln.setModificadoEn(fechaSQL);
-        ln.setCreadoPor("Leon");
+       // ln.setModificadoEn(fechaSQL);
+       // ln.setCreadoPor("Leon");
         ln.setModificadoPor("Leon");
 
         if (servicios.updateLineamiento(ln)) {

@@ -21,17 +21,20 @@ import java.util.logging.Logger;
  *
  * @author Leon
  */
-public class LineamientoDAO implements ILineamiento{
+public class LineamientoDAO {
 
     private Connection DBConnection = null;
 
     public LineamientoDAO(Connection openConnection) {
         this.DBConnection = openConnection;
     }
- @Override
+ 
     public boolean createLineamiento(Lineamiento lineamiento) {
         try {
-           
+            java.util.Date fecha = new java.util.Date();
+            java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+             lineamiento.setCreadoEn(fechaSQL);
+            // lineamiento.setModificadoEn(fechaSQL);
 
             PreparedStatement ps = null;
 
@@ -61,7 +64,7 @@ public class LineamientoDAO implements ILineamiento{
     }
 
     
-     @Override
+    
     public ArrayList<Lineamiento> getLineamientos() {
         ArrayList<Lineamiento> list = new ArrayList<Lineamiento>();
         try {
@@ -90,7 +93,7 @@ public class LineamientoDAO implements ILineamiento{
         }
 
     }
-     @Override
+     
     public ArrayList<Lineamiento> getLineamientoByDirector(String director)  {
         ArrayList<Lineamiento> list = new ArrayList<Lineamiento>();
         try {
@@ -119,7 +122,7 @@ public class LineamientoDAO implements ILineamiento{
         }
 
     }
-     @Override
+     
     public Lineamiento getLineamientoById(int id) {
         
         Lineamiento lineamiento = new Lineamiento();
@@ -150,7 +153,7 @@ public class LineamientoDAO implements ILineamiento{
         }
 
     }
-     @Override
+     
     public boolean deleteLineamiento(int id) {
         try {
            
@@ -176,9 +179,13 @@ public class LineamientoDAO implements ILineamiento{
         }
 
     }
-     @Override
+     
     public boolean updateLineamiento(Lineamiento lineamiento) {
         try {
+             java.util.Date fecha = new java.util.Date();
+            java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+             //lineamiento.setCreadoEn(fechaSQL);
+             lineamiento.setModificadoEn(fechaSQL);
            
 
             PreparedStatement ps = null;
@@ -208,7 +215,7 @@ public class LineamientoDAO implements ILineamiento{
 
     }
 
-    @Override
+    
     public List<Lineamiento> getLineamientoByFacultad(String facultad) {
         return null;
     }

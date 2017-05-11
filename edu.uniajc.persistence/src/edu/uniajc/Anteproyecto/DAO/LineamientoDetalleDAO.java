@@ -21,17 +21,20 @@ import java.util.logging.Logger;
  *
  * @author Leon
  */
-public class LineamientoDetalleDAO implements ILineamientoDetalle{
+public class LineamientoDetalleDAO {
 
     private Connection DBConnection = null;
 
     public LineamientoDetalleDAO(Connection openConnection) {
         this.DBConnection = openConnection;
     }
-     @Override
+     
     public boolean createLineamientoDetalle(LineamientoDetalle lineamientoDetalle) {
         try {
-             
+              java.util.Date fecha = new java.util.Date();
+            java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+             lineamientoDetalle.setCreadoEn(fechaSQL);
+            // lineamiento.setModificadoEn(fechaSQL);
 
             PreparedStatement ps = null;
 
@@ -64,7 +67,7 @@ public class LineamientoDetalleDAO implements ILineamientoDetalle{
         }
 
     }
-     @Override
+     
     public List<LineamientoDetalle> getLineamientoDetalleByLineamiento(int lineamiento)  {
         ArrayList<LineamientoDetalle> list = new ArrayList<LineamientoDetalle>();
         try {
@@ -98,7 +101,7 @@ public class LineamientoDetalleDAO implements ILineamientoDetalle{
         }
 
     }
-     @Override
+     
     public LineamientoDetalle getLineamientoDetalleById(int id)  {
 
         LineamientoDetalle lineamientoDetalle = new LineamientoDetalle();
@@ -132,7 +135,7 @@ public class LineamientoDetalleDAO implements ILineamientoDetalle{
         }
 
     }
-     @Override
+    
     public ArrayList<LineamientoDetalle> getLineamientosDetalle() {
 
         ArrayList<LineamientoDetalle> list = new ArrayList<LineamientoDetalle>();
@@ -165,7 +168,7 @@ public class LineamientoDetalleDAO implements ILineamientoDetalle{
         }
 
     }
-     @Override
+     
     public boolean deleteLineamientoDetalle(int ID){
          try {
            
@@ -191,10 +194,13 @@ public class LineamientoDetalleDAO implements ILineamientoDetalle{
             return false;
         }
     }
-     @Override
+     
     public boolean updateLineamientoDetalle(LineamientoDetalle lineamientoDetalle){
         try {
-           
+            java.util.Date fecha = new java.util.Date();
+            java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+             //lineamientoDetalle.setCreadoEn(fechaSQL);
+             lineamientoDetalle.setModificadoEn(fechaSQL);
 
             PreparedStatement ps = null;
             

@@ -5,6 +5,8 @@
  */
 package edu.uniajc.iAnteproyecto.view;
 
+import edu.uniajc.Anteproyecto.util.LeerPropiedades;
+import edu.uniajc.anteproyecto.interfaces.ILineamientoDetalle;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -13,9 +15,13 @@ import edu.uniajc.anteproyecto.interfaces.model.*;
 import edu.uniajc.anteproyecto.logic.services.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -26,18 +32,21 @@ import org.primefaces.event.RowEditEvent;
 @ViewScoped
 public class LineamientoDetalleBean {
 
-    private LineamientoDetalleServices servicios;
+    private ILineamientoDetalle servicios;
     private LineamientoDetalle lineamientoDetalle;
     private List<LineamientoDetalle> listalineamientoDetalle;
+    private String config ="LineamientoDetalleServices";
+    private LeerPropiedades leer = new LeerPropiedades();
+    private int v_select_lineamiento;
     
     
      //Combos
-    private ArrayList<SelectItem> itemsLineamiento;
+    
     private ArrayList<SelectItem> itemsCorte;
     private String v_select_corte;
-    private String v_select_lineamiento;
     
-    private Double porcentajeActual;
+    
+    private Double porcentajeActual=0.0;
     
     
     //Falta Poner corte como un combo, pero no tenemos modelo de lista valor
@@ -45,24 +54,24 @@ public class LineamientoDetalleBean {
      //private String v_select_lineamiento;
     
 
-    public LineamientoDetalleBean() {
+    public LineamientoDetalleBean() throws NamingException {
+        
+        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Map params = facesContext.getExternalContext().getRequestParameterMap();
+        Integer parametroObtenido= new Integer((String) params.get("id_Lin"));
+        
+        InitialContext ctx = new InitialContext();
         lineamientoDetalle = new LineamientoDetalle();
-        servicios = new LineamientoDetalleServices();
-        itemsLineamiento = Consultar_Lineamiento_combo();
+        servicios = (ILineamientoDetalle) ctx.lookup(leer.leerArchivo(config));       
         itemsCorte=Consultar_Corte_combo();
+        this.v_select_lineamiento=parametroObtenido;
+        
+        llenarlista();
        // listalineamientoDetalle = servicios.getLineamientosDetalle();
        //listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
     }
-    public ArrayList<SelectItem> Consultar_Lineamiento_combo() {
-         LineamientoServices serviciosLine =new LineamientoServices();
-        
-        List<Lineamiento> lista = serviciosLine.getLineamientos();
-        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
-        for (Lineamiento obj : (ArrayList<Lineamiento>) lista) {
-            items.add(new SelectItem(obj.getID(), obj.getDescripcion()));
-        }
-        return items;
-    }
+    
     
     public ArrayList<SelectItem> Consultar_Corte_combo() {
          ListaValorDetalleServices serviciosLine =new ListaValorDetalleServices();
@@ -77,7 +86,7 @@ public class LineamientoDetalleBean {
     
     public void limpiarForma() {
         lineamientoDetalle = new LineamientoDetalle();
-        listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
+        listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento((v_select_lineamiento));
         
     }
     public void limpiarCombox(){
@@ -86,13 +95,14 @@ public class LineamientoDetalleBean {
     }
 
     public void crear() {
-       Date fecha = new Date();
-        java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-        lineamientoDetalle.setCreadoEn(fechaSQL);
+      
+       
+       // lineamientoDetalle.setCreadoEn(fechaSQL);
         //lineamientoDetalle.setModificadoEn(fechaSQL);
         lineamientoDetalle.setCreadoPor("Leon");
+        
         //lineamientoDetalle.setModificadoPor("Leon");
-        lineamientoDetalle.setIdLineamiento(Integer.parseInt(v_select_lineamiento));
+        lineamientoDetalle.setIdLineamiento((v_select_lineamiento));
         lineamientoDetalle.setCorte(Integer.parseInt(v_select_corte));
         
 if(calcularProcentaje() <= 100 ){
@@ -140,12 +150,12 @@ if(calcularProcentaje() <= 100 ){
 
         Object ob = event.getObject();
         LineamientoDetalle ln = (LineamientoDetalle) ob;
-         Date fecha = new Date();
-        java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+        
         //ln.setCreadoEn(fechaSQL);
-        ln.setModificadoEn(fechaSQL);
+       // ln.setModificadoEn(fechaSQL);
         //ln.setCreadoPor("Leon");
         ln.setModificadoPor("Leon");
+        lineamientoDetalle.setIdLineamiento(v_select_lineamiento);
 
         if (servicios.updateLineamientoDetalle(ln)) {
             llenarlista();
@@ -185,12 +195,12 @@ if(calcularProcentaje() <= 100 ){
     }
     
     public void llenarlista (){
-        listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
+        listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(v_select_lineamiento);
         porcentajeActual=calcularProcentajeActual();
     }
 
     public LineamientoDetalleServices getServicios() {
-        return servicios;
+        return null;
     }
 
     public void setServicios(LineamientoDetalleServices servicios) {
@@ -213,19 +223,13 @@ if(calcularProcentaje() <= 100 ){
         this.listalineamientoDetalle = listalineamientoDetalle;
     }
 
-    public ArrayList<SelectItem> getItemsLineamiento() {
-        return itemsLineamiento;
-    }
+   
 
-    public void setItemsLineamiento(ArrayList<SelectItem> itemsLineamiento) {
-        this.itemsLineamiento = itemsLineamiento;
-    }
-
-    public String getV_select_lineamiento() {
+    public int getV_select_lineamiento() {
         return v_select_lineamiento;
     }
 
-    public void setV_select_lineamiento(String v_select_lineamiento) {
+    public void setV_select_lineamiento(int v_select_lineamiento) {
         this.v_select_lineamiento = v_select_lineamiento;
     }
 
@@ -252,5 +256,14 @@ if(calcularProcentaje() <= 100 ){
     public void setPorcentajeActual(Double porcentajeActual) {
         this.porcentajeActual = porcentajeActual;
     }
+    /*public ArrayList<SelectItem> Consultar_Lineamiento_combo() {
+         LineamientoServices serviciosLine =new LineamientoServices();
+        List<Lineamiento> lista = serviciosLine.getLineamientos();
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        for (Lineamiento obj : (ArrayList<Lineamiento>) lista) {
+            items.add(new SelectItem(obj.getID(), obj.getDescripcion()));
+        }
+        return items;
+    }*/
 
 }

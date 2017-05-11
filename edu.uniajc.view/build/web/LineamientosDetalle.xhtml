@@ -5,8 +5,13 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+   
 
     <body>
+         
+       
+        
         <ui:composition template="./TEMPLATES/Home.xhtml">
             <ui:define name="content">
                <h:form id="forma">
@@ -19,13 +24,7 @@
                 <p:tab title="Gestion Detalles Lineamientos"> <!-- Nombre  -->
                     <h:panelGrid columns="4" cellpadding="5">
                         
-                         <p:outputLabel for="add_1" value="Lineamiento :" />
-                         
-                         <p:selectOneMenu  id="add_1" value="#{lineamientoDetalleBean.v_select_lineamiento}" required="true" requiredMessage="Campo requerido">  
-                             <p:ajax listener="#{lineamientoDetalleBean.llenarlista}" update=":forma2:listaLineamientoDetalle,:forma:tab:add_5" />   
-                             <f:selectItem itemLabel="Seleccione" itemValue="" />  
-                                <f:selectItems value="#{lineamientoDetalleBean.itemsLineamiento}"/>  
-                        </p:selectOneMenu>
+                      
                         
                         <p:outputLabel for="add_2" value="Descripcion :" />
                         <p:inputText   id="add_2" value="#{lineamientoDetalleBean.lineamientoDetalle.descripcion}" 
@@ -43,7 +42,7 @@
                         </p:selectOneMenu> 
                         
                         <p:outputLabel for="add_5" value="Porcentaje Actual :" />
-                        <p:inputText   id="add_5" value="#{lineamientoDetalleBean.porcentajeActual}" readonly="true"/> 
+                        <p:outputLabel   id="add_5" value="#{lineamientoDetalleBean.porcentajeActual}" /> 
                         
                          
                         
@@ -53,7 +52,7 @@
                     
                     <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
                     <p:commandButton 
-                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_5,:forma2:listaLineamientoDetalle"
+                        update=":forma:grow,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_5,:forma2:listaLineamientoDetalle"
                         ajax="true" value="Crear" action="#{lineamientoDetalleBean.crear}"
                         
                                       />
@@ -87,7 +86,7 @@
                            
                           
 			</p:column>
-                       
+                       <!--
                        <p:column style="width:100px" headerText="Lineamientos" >
                          <p:cellEditor>
                              <f:facet name="output"><h:outputText value="#{lineamientoDetalle.idLineamiento}" /></f:facet>
@@ -97,7 +96,7 @@
                               </h:selectOneMenu> 
                            </f:facet>
                          </p:cellEditor>
-			</p:column> 
+			</p:column> -->
                        
                        
 			<p:column style="width:100px" headerText="Descripciones ">

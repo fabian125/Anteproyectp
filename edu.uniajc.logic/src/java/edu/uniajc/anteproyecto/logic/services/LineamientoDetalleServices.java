@@ -20,6 +20,7 @@ import javax.sql.DataSource;
  *
  * @author Leon
  */
+@Stateless
 public class LineamientoDetalleServices implements ILineamientoDetalle{
 
     @Override

@@ -22,7 +22,7 @@ import javax.sql.DataSource;
  *
  * @author Leon
  */
-
+@Stateless
 public class ListaValorDetalleServices implements IListaValoresDetalle{
 
 
