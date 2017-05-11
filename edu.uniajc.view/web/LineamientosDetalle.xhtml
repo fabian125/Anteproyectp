@@ -44,19 +44,21 @@
                         <p:outputLabel for="add_5" value="Porcentaje Actual :" />
                         <p:outputLabel   id="add_5" value="#{lineamientoDetalleBean.porcentajeActual}" /> 
                         
-                         
                         
-                         
+              
                     </h:panelGrid>
                     <p:separator />
                     
                     <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
                     <p:commandButton 
                         update=":forma:grow,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_5,:forma2:listaLineamientoDetalle"
-                        ajax="true" value="Crear" action="#{lineamientoDetalleBean.crear}"
+                        ajax="true" value="Crear" action="#{lineamientoDetalleBean.crear}" icon="ui-icon-folder-open"
                         
                                       />
-                              
+                    
+                            <p:button outcome="Lineamientos.xhtml" value="Volver" icon="ui-icon-home">
+                               
+                                    </p:button>
                     
                 </p:tab>
 

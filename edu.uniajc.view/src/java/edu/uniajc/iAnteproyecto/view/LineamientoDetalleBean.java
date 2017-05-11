@@ -256,6 +256,9 @@ if(calcularProcentaje() <= 100 ){
     public void setPorcentajeActual(Double porcentajeActual) {
         this.porcentajeActual = porcentajeActual;
     }
+    
+        
+    }
     /*public ArrayList<SelectItem> Consultar_Lineamiento_combo() {
          LineamientoServices serviciosLine =new LineamientoServices();
         List<Lineamiento> lista = serviciosLine.getLineamientos();
@@ -266,4 +269,4 @@ if(calcularProcentaje() <= 100 ){
         return items;
     }*/
 
-}
+
