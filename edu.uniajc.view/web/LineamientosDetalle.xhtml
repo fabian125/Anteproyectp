@@ -19,7 +19,9 @@
                <h:form id="forma">
             
             <p:growl id="grow" showDetail="true" life="5555"/>  
-            <input type="text" name="titulo" value="#{lineamientoDetalleBean.lineamiento.descripcion}" readonly="readonly" />
+            <p:panel header="Lineamiento">
+                <p:outputLabel value="#{lineamientoDetalleBean.lineamiento.descripcion}" style="font-family: Arial; font-size: 20pt; width:110px " />
+            </p:panel>
             <p:tabView id="tab">
                 
                 

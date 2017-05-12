@@ -19,12 +19,13 @@ public interface ILineamiento {
     public boolean createLineamiento(Lineamiento lineamiento);
     public boolean deleteLineamiento(int ID);
     public boolean updateLineamiento(Lineamiento lineamiento);
-    
+    public Lineamiento getLineamientoById(int id);   
     public ArrayList<Lineamiento> getLineamientos();
 
+    //ESTAS NO VAN
     public List<Lineamiento> getLineamientoByDirector(String director);
     public List<Lineamiento> getLineamientoByFacultad(String facultad);
-    public Lineamiento getLineamientoById(int id);
+    
     
     
 }
