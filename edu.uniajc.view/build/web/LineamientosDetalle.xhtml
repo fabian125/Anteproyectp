@@ -8,16 +8,18 @@
     
    
 
-    <body>
+    <h:body>
          
-       
+        <h:form>
+            <p:remoteCommand name="onload" actionListener="#{lineamientoDetalleBean.ejecuteMetodos}" autoRun="true" />
+        </h:form>
         
         <ui:composition template="./TEMPLATES/Home.xhtml">
             <ui:define name="content">
                <h:form id="forma">
             
             <p:growl id="grow" showDetail="true" life="5555"/>  
-            
+            <input type="text" name="titulo" value="#{lineamientoDetalleBean.lineamiento.descripcion}" readonly="readonly" />
             <p:tabView id="tab">
                 
                 
@@ -191,5 +193,5 @@
 
         </ui:composition>
 
-    </body>
+    </h:body>
 </html>

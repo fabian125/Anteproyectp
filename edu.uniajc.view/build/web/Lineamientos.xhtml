@@ -100,8 +100,9 @@
                             <p:commandButton 
                               update=":forma:grow,:forma2:listaLineamiento"
                               ajax="true" icon="ui-icon-search" 
-                              action="LineamientosDetalle.xhtml" > 
-                                <f:param name="id_Lin" value="#{lineamiento.ID}"/>
+                              action="#{lineamientoBean.navega()}">
+                              <f:setPropertyActionListener value="#{lineamiento}"  
+                                                           target="#{lineamientoBean.lineamientoTable}" />                                    
                             </p:commandButton>
                                 
 			</p:column> 

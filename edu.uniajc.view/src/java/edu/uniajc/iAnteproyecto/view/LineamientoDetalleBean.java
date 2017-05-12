@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
@@ -34,48 +35,33 @@ public class LineamientoDetalleBean {
 
     private ILineamientoDetalle servicios;
     private LineamientoDetalle lineamientoDetalle;
+    private Lineamiento lineamiento;
     private List<LineamientoDetalle> listalineamientoDetalle;
-    private String config ="LineamientoDetalleServices";
+    private String config = "LineamientoDetalleServices";
     private LeerPropiedades leer = new LeerPropiedades();
     private int v_select_lineamiento;
-    
-    
-     //Combos
-    
+
+    //Combos
     private ArrayList<SelectItem> itemsCorte;
     private String v_select_corte;
-    
-    
-    private Double porcentajeActual=0.0;
-    
-    
-    //Falta Poner corte como un combo, pero no tenemos modelo de lista valor
-     //private ArrayList<SelectItem> itemsCorte;
-     //private String v_select_lineamiento;
-    
 
+    private Double porcentajeActual = 0.0;
+
+    //Falta Poner corte como un combo, pero no tenemos modelo de lista valor
+    //private ArrayList<SelectItem> itemsCorte;
+    //private String v_select_lineamiento;
     public LineamientoDetalleBean() throws NamingException {
-        
-        
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        Map params = facesContext.getExternalContext().getRequestParameterMap();
-        Integer parametroObtenido= new Integer((String) params.get("id_Lin"));
-        
         InitialContext ctx = new InitialContext();
         lineamientoDetalle = new LineamientoDetalle();
-        servicios = (ILineamientoDetalle) ctx.lookup(leer.leerArchivo(config));       
-        itemsCorte=Consultar_Corte_combo();
-        this.v_select_lineamiento=parametroObtenido;
-        
-        llenarlista();
-       // listalineamientoDetalle = servicios.getLineamientosDetalle();
-       //listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
+        servicios = (ILineamientoDetalle) ctx.lookup(leer.leerArchivo(config));
+        ejecuteMetodos();
+        // listalineamientoDetalle = servicios.getLineamientosDetalle();
+        //listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(Integer.parseInt(v_select_lineamiento));
     }
-    
-    
+
     public ArrayList<SelectItem> Consultar_Corte_combo() {
-         ListaValorDetalleServices serviciosLine =new ListaValorDetalleServices();
-        
+        ListaValorDetalleServices serviciosLine = new ListaValorDetalleServices();
+
         List<ListaValoresDetalle> lista = serviciosLine.getListaValorDetallebyID_Lista_Valor(1);
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (ListaValoresDetalle obj : (ArrayList<ListaValoresDetalle>) lista) {
@@ -83,76 +69,83 @@ public class LineamientoDetalleBean {
         }
         return items;
     }
-    
+
     public void limpiarForma() {
         lineamientoDetalle = new LineamientoDetalle();
         listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento((v_select_lineamiento));
-        
+
     }
-    public void limpiarCombox(){
+
+    public void limpiarCombox() {
         //v_select_lineamiento="";
-        v_select_corte="";
+        v_select_corte = "";
+    }
+    
+    public void cargarLineamiento(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext extContext = facesContext.getExternalContext();
+        this.lineamiento = (Lineamiento) extContext.getSessionMap().get(LineamientoBean.KEY);
+        extContext.getSessionMap().remove(LineamientoBean.KEY);
+        
+        
     }
 
     public void crear() {
-      
-       
-       // lineamientoDetalle.setCreadoEn(fechaSQL);
+
+        // lineamientoDetalle.setCreadoEn(fechaSQL);
         //lineamientoDetalle.setModificadoEn(fechaSQL);
         lineamientoDetalle.setCreadoPor("Leon");
-        
+
         //lineamientoDetalle.setModificadoPor("Leon");
         lineamientoDetalle.setIdLineamiento((v_select_lineamiento));
         lineamientoDetalle.setCorte(Integer.parseInt(v_select_corte));
-        
-if(calcularProcentaje() <= 100 ){
-    
 
-        if (servicios.createLineamientoDetalle(lineamientoDetalle)) {
+        if (calcularProcentaje() <= 100) {
 
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            limpiarForma();
-             llenarlista();
-             limpiarCombox();
+            if (servicios.createLineamientoDetalle(lineamientoDetalle)) {
+
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                limpiarForma();
+                llenarlista();
+                limpiarCombox();
+            } else {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+
+            }
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Porcentaje debe ser mayor a 0 y menor que 10");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-
         }
-}else{
-   FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Porcentaje debe ser mayor a 0 y menor que 10");
-            FacesContext.getCurrentInstance().addMessage(null, msg); 
-}
-    
 
     }
 
-    
-    public Double calcularProcentaje(){
-        Double procentaje=0.0;
-        for(int i =0; i< listalineamientoDetalle.size(); i++){
-            procentaje+=listalineamientoDetalle.get(i).getPorcentaje();
+    public Double calcularProcentaje() {
+        Double procentaje = 0.0;
+        for (int i = 0; i < listalineamientoDetalle.size(); i++) {
+            procentaje += listalineamientoDetalle.get(i).getPorcentaje();
         }
-        
-        return procentaje+lineamientoDetalle.getPorcentaje();
+
+        return procentaje + lineamientoDetalle.getPorcentaje();
     }
-     public Double calcularProcentajeActual(){
-        Double procentaje=0.0;
-        for(int i =0; i< listalineamientoDetalle.size(); i++){
-            procentaje+=listalineamientoDetalle.get(i).getPorcentaje();
+
+    public Double calcularProcentajeActual() {
+        Double procentaje = 0.0;
+        for (int i = 0; i < listalineamientoDetalle.size(); i++) {
+            procentaje += listalineamientoDetalle.get(i).getPorcentaje();
         }
-        
+
         return procentaje;
     }
-    
+
     public void modificar(RowEditEvent event) {
 
         Object ob = event.getObject();
         LineamientoDetalle ln = (LineamientoDetalle) ob;
-        
+
         //ln.setCreadoEn(fechaSQL);
-       // ln.setModificadoEn(fechaSQL);
+        // ln.setModificadoEn(fechaSQL);
         //ln.setCreadoPor("Leon");
         ln.setModificadoPor("Leon");
         lineamientoDetalle.setIdLineamiento(v_select_lineamiento);
@@ -161,8 +154,7 @@ if(calcularProcentaje() <= 100 ){
             llenarlista();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            
-           
+
         } else {
             llenarlista();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realziar la operación");
@@ -173,17 +165,17 @@ if(calcularProcentaje() <= 100 ){
     public void eliminar(int IdLineamiento) {
         boolean flag = false;
         for (LineamientoDetalle lineamientoEliminar : listalineamientoDetalle) {
-            if (lineamientoEliminar.getId()== IdLineamiento) {
-                
+            if (lineamientoEliminar.getId() == IdLineamiento) {
+
                 if (servicios.deleteLineamientoDetalle(IdLineamiento)) {
                     flag = true;
-                    
+
                     break;
 
                 }
             }
         }
-        
+
         if (flag) {
             llenarlista();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Lineamiento Fue eliminado con exito.");
@@ -193,10 +185,20 @@ if(calcularProcentaje() <= 100 ){
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
+public void ejecuteMetodos(){
     
-    public void llenarlista (){
+    
+    cargarLineamiento();
+    itemsCorte = Consultar_Corte_combo();
+    this.v_select_lineamiento = lineamiento.getID();
+    llenarlista();
+  // return  null;
+    
+    
+}
+    public void llenarlista() {
         listalineamientoDetalle = servicios.getLineamientoDetalleByLineamiento(v_select_lineamiento);
-        porcentajeActual=calcularProcentajeActual();
+        porcentajeActual = calcularProcentajeActual();
     }
 
     public LineamientoDetalleServices getServicios() {
@@ -219,11 +221,17 @@ if(calcularProcentaje() <= 100 ){
         return listalineamientoDetalle;
     }
 
+    public Lineamiento getLineamiento() {
+        return lineamiento;
+    }
+
+    public void setLineamiento(Lineamiento lineamiento) {
+        this.lineamiento = lineamiento;
+    }
+    
     public void setListalineamientoDetalle(List<LineamientoDetalle> listalineamientoDetalle) {
         this.listalineamientoDetalle = listalineamientoDetalle;
     }
-
-   
 
     public int getV_select_lineamiento() {
         return v_select_lineamiento;
@@ -256,10 +264,9 @@ if(calcularProcentaje() <= 100 ){
     public void setPorcentajeActual(Double porcentajeActual) {
         this.porcentajeActual = porcentajeActual;
     }
-    
-        
-    }
-    /*public ArrayList<SelectItem> Consultar_Lineamiento_combo() {
+
+}
+/*public ArrayList<SelectItem> Consultar_Lineamiento_combo() {
          LineamientoServices serviciosLine =new LineamientoServices();
         List<Lineamiento> lista = serviciosLine.getLineamientos();
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
@@ -268,5 +275,3 @@ if(calcularProcentaje() <= 100 ){
         }
         return items;
     }*/
-
-

@@ -38,13 +38,25 @@ import org.primefaces.event.RowEditEvent;
 @ManagedBean(name = "lineamientoBean")
 @ViewScoped
 public class LineamientoBean {
-
+    
+    public static final String KEY = "lineamiento";
     private ILineamiento servicios;
     private Lineamiento lineamiento;
+    private Lineamiento lineamientoTable;
     private List<Lineamiento> listalineamiento;
     private String config = "LineamientoServices";
     private LeerPropiedades leer = new LeerPropiedades();
 
+    public Lineamiento getLineamientoTable() {
+        return lineamientoTable;
+    }
+
+    public void setLineamientoTable(Lineamiento lineamientoTable) {
+        this.lineamientoTable = lineamientoTable;
+    }
+
+    
+    
     public Lineamiento getLineamiento() {
         return lineamiento;
     }
@@ -77,13 +89,14 @@ public class LineamientoBean {
         listalineamiento = servicios.getLineamientos();
     }
 
-   /*public String navega() throws NamingException {
-     FacesContext context = javax.faces.context.FacesContext.getCurrentInstance();
-     HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-        LineamientoDetalleBean nB =(LineamientoDetalleBean) session.getAttribute("id_Lin");
-        return "LineamientosDetalle.xhtml";
+   public String navega() throws NamingException {
+        
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.getExternalContext().getSessionMap().put(KEY, lineamientoTable);
+            return "LineamientosDetalle.xhtml";
+        
     
-}*/
+}
 
 public void limpiarForma() {
         lineamiento = new Lineamiento();
@@ -92,10 +105,9 @@ public void limpiarForma() {
 
     public void crear() {
       
-       // lineamiento.setCreadoEn(fechaSQL);
-       // lineamiento.setModificadoEn(fechaSQL);
+       
         lineamiento.setCreadoPor("Leon");
-        //lineamiento.setModificadoPor("Leon");
+        
 
         if (servicios.createLineamiento(lineamiento)) {
 
