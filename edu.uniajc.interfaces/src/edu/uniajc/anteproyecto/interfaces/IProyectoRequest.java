@@ -7,10 +7,8 @@ package edu.uniajc.anteproyecto.interfaces;
 
 /**
  *
- * @author Leon
+ * @author jarteaga
  */
-public interface IListaValores{
-        
-
+public interface IProyectoRequest {
     
 }

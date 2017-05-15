@@ -3,10 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/azlogin/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/ILineamientoDetalle.java</file>
-            <file>file:/C:/Users/azlogin/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/ILineamiento.java</file>
-            <file>file:/C:/Users/azlogin/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/model/Lineamiento.java</file>
-            <file>file:/C:/Users/azlogin/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/model/LineamientoDetalle.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/model/LineamientoDetalle.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/IRol.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/model/Lineamiento.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/ILineamiento.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/model/Proyecto.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/model/ListaValoresDetalle.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/IListaValores.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/model/ListaValores.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/IListaValoresDetalle.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/IProyecto.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/ILineamientoDetalle.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/model/Rol.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.interfaces/src/edu/uniajc/anteproyecto/interfaces/model/ListaValor.java</file>
         </group>
     </open-files>
 </project-private>

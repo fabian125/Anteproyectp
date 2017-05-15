@@ -8,7 +8,6 @@ package edu.uniajc.anteproyecto.interfaces;
 
 import edu.uniajc.anteproyecto.interfaces.model.LineamientoDetalle;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 /**

@@ -7,8 +7,6 @@ package edu.uniajc.anteproyecto.interfaces;
 
 import edu.uniajc.anteproyecto.interfaces.model.*;
 import java.util.ArrayList;
-import java.sql.Date;
-import java.util.List;
 
 /**
  *@author Emmanuel Barrera - IRIS
@@ -22,8 +20,8 @@ public interface IProyecto {
     public boolean createProyecto(Proyecto proyecto);
     public boolean deleteProyecto(int ID);
     public boolean updateProyecto(Proyecto proyecto);
-    public Proyecto getProyectoById(int id);   
-    public ArrayList<Proyecto> getProyectos();
+    //public Proyecto getProyectoById(int id);   
+    //public ArrayList<Proyecto> getProyectos();
 
     
 }
