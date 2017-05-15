@@ -9,15 +9,8 @@ import edu.uniajc.Anteproyecto.DAO.*;
 import edu.uniajc.anteproyecto.interfaces.*;
 
 import edu.uniajc.anteproyecto.interfaces.model.*;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 /**
  *
  * @author Leon

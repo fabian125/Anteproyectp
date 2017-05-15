@@ -21,7 +21,7 @@ public class ConexionBD {
     
     public Connection conexion() {
         try{
-        Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection(); 
+        Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/iris_i")).getConnection(); 
          return dbConnection;
          } catch (SQLException | NamingException e) {
             System.out.println(e.getMessage());
