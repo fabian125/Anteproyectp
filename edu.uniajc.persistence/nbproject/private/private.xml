@@ -3,6 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="PYME_Middleware"/>
-        <group/>
+        <group>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.persistence/src/edu/uniajc/Anteproyecto/DAO/LineamientoDetalleDAO.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.persistence/src/edu/uniajc/Anteproyecto/DAO/LineamientoDAO.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.persistence/src/edu/uniajc/Anteproyecto/DAO/ListaValoresDetalleDAO.java</file>
+            <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.persistence/src/edu/uniajc/Anteproyecto/DAO/RolDAO.java</file>
+        </group>
     </open-files>
 </project-private>

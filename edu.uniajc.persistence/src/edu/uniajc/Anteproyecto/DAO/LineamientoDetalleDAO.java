@@ -5,10 +5,8 @@
  */
 package edu.uniajc.Anteproyecto.DAO;
 
-import edu.uniajc.anteproyecto.interfaces.ILineamientoDetalle;
 import edu.uniajc.anteproyecto.interfaces.model.LineamientoDetalle;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
