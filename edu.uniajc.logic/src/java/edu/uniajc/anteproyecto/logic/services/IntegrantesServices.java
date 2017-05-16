@@ -56,7 +56,7 @@ public class IntegrantesServices implements IIntegrantes{
                 //Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
                  ConexionBD cn = new ConexionBD();
                 IntegrantesDAO dao = new IntegrantesDAO(cn.conexion());
-                boolean flag=dao.deleteIntegrante(ID);
+                boolean flag=dao.deleteIntegrantes(ID);
                         cn.conexion().close();
 
                 
@@ -88,6 +88,80 @@ public class IntegrantesServices implements IIntegrantes{
             return false;
         }
     }
+    
+    @Override
+  public Integrantes getIntegrantesByTipoIntegrante(int ID_T_LV_TIPOINTEGRANTE) {
+        try {
 
+           
+                // se adquiere la conexion a base de datos desde el servidor de aplicaciones
+                //Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+                 ConexionBD cn = new ConexionBD();
+                IntegrantesDAO dao = new IntegrantesDAO(cn.conexion());
+                	
+
+                
+                Integrantes integrantes = dao.getIntegrantesByTipoIntegrante(ID_T_LV_TIPOINTEGRANTE);
+                 cn.conexion().close();
+                
+                return integrantes;
+           
+                
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+  
+     @Override
+  public Integrantes getIntegrantesByProyecto(int ID_T_Proyecto) {
+        try {
+
+           
+                // se adquiere la conexion a base de datos desde el servidor de aplicaciones
+                //Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+                 ConexionBD cn = new ConexionBD();
+                IntegrantesDAO dao = new IntegrantesDAO(cn.conexion());
+                	
+
+                
+                Integrantes integrantes = dao.getIntegrantesByProyecto(ID_T_Proyecto);
+                 cn.conexion().close();
+                
+                return integrantes;
+           
+                
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+  
+  @Override
+    public ArrayList<Integrantes> getIntegrantesByTipoIntegrantes(int ID_T_LV_TIPOINTEGRANTE ) {
+       try {
+
+           
+                // se adquiere la conexion a base de datos desde el servidor de aplicaciones
+               // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+                ConexionBD cn = new ConexionBD();
+               IntegrantesDAO dao = new IntegrantesDAO(cn.conexion());
+                	
+
+                
+                ArrayList<Integrantes> list = dao.getIntegrantesByTipoIntegrantes( ID_T_LV_TIPOINTEGRANTE );
+                 cn.conexion().close();
+                
+                return list;
+           
+                
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
    
 }
