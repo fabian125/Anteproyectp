@@ -231,8 +231,8 @@ public class ProyectoDao {
             ps.setString(7, proyecto.getCreadoPor());
             ps.setDate(8, proyecto.getCreadoEn());
             ps.setString(9, proyecto.getModificadoPor());
-            ps.setDate(7, proyecto.getModificadoEn());
-            ps.setInt(7, proyecto.getID());
+            ps.setDate(10, proyecto.getModificadoEn());
+            ps.setInt(11, proyecto.getID());
             
             ps.execute();
             
