@@ -1,0 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package edu.uniajc.anteproyecto.interfaces;
+
+import edu.uniajc.anteproyecto.interfaces.model.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *@author Fabian Castro - IRIS
+ *16/05/2017
+ * Nombre Clase:IIntegrantes
+ * Descripcion: interface de la clase Integrantes
+ */
+public interface IIntegrantes {
+        
+    public boolean createintegrantes(Integrantes integrantes);
+    public boolean deleteIntegrantes(int ID);
+    public boolean updateIntegrantes(Integrantes integrantes);
+
+}
