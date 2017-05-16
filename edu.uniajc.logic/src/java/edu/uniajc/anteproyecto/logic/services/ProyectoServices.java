@@ -25,7 +25,7 @@ public class ProyectoServices implements IProyecto
 {
 
     @Override
-    public boolean createProyecto(Proyecto proyecto) {
+    public int createProyecto(Proyecto proyecto) {
         try {
 
             // validacion de Data
@@ -38,19 +38,19 @@ public class ProyectoServices implements IProyecto
                 	
 
                 
-                boolean flag = dao.createProyecto(proyecto);
+                int flag = dao.createProyecto(proyecto);
                  cn.conexion().close();
                
                         
                 return flag;
             } else {
                 System.out.println("Faltan Datos en pantalla");
-                return false;
+                return 0;
                 
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return false;
+            return 0;
         }
     }
 

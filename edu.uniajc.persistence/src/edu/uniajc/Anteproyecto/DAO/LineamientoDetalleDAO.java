@@ -41,17 +41,17 @@ public class LineamientoDetalleDAO {
             //ResultSet rs = ps.executeQuery();
             //int codigo = rs.getInt("ID");
 
-            SQL = "insert into TB_MetodologiaDetalle( ID,ID_T_Metodologia,descripcion,porcentaje,corte,creadoPor,creadoEn,modificadoPor,modificadoEn) values(?,?,?,?,?,?,?,?,?)";
+            SQL = "insert into TB_MetodologiaDetalle( ID_T_Metodologia,descripcion,porcentaje,corte,creadoPor,creadoEn,modificadoPor,modificadoEn) values(?,?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
-            ps.setInt(1, lineamientoDetalle.getId());
-            ps.setInt(2, lineamientoDetalle.getIdLineamiento());
-            ps.setString(3, lineamientoDetalle.getDescripcion());
-            ps.setDouble(4, lineamientoDetalle.getPorcentaje());
-            ps.setInt(5, lineamientoDetalle.getCorte());
-            ps.setString(6, lineamientoDetalle.getCreadoPor());
-            ps.setDate(7, lineamientoDetalle.getCreadoEn());
-            ps.setString(8, lineamientoDetalle.getModificadoPor());
-            ps.setDate(9, lineamientoDetalle.getModificadoEn());
+           //ps.setInt(1, lineamientoDetalle.getId());
+            ps.setInt(1, lineamientoDetalle.getIdLineamiento());
+            ps.setString(2, lineamientoDetalle.getDescripcion());
+            ps.setDouble(3, lineamientoDetalle.getPorcentaje());
+            ps.setInt(4, lineamientoDetalle.getCorte());
+            ps.setString(5, lineamientoDetalle.getCreadoPor());
+            ps.setDate(6, lineamientoDetalle.getCreadoEn());
+            ps.setString(7, lineamientoDetalle.getModificadoPor());
+            ps.setDate(8, lineamientoDetalle.getModificadoEn());
             ps.execute();
             ps.close();
 

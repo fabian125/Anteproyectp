@@ -41,14 +41,14 @@ public class LineamientoDAO {
             //ResultSet rs = ps.executeQuery();
             //int codigo = rs.getInt("ID");
 
-            SQL = "insert into TB_Metodologia( ID,descripcion,creadoPor,creadoEn,modificadoPor,modificadoEn) values(?,?,?,?,?,?)";
+            SQL = "insert into TB_Metodologia(descripcion,creadoPor,creadoEn,modificadoPor,modificadoEn) values(?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
-            ps.setInt(1,lineamiento.getID());
-            ps.setString(2, lineamiento.getDescripcion());
-            ps.setString(3, lineamiento.getCreadoPor());
-            ps.setDate(4, lineamiento.getCreadoEn());
-            ps.setString(5, lineamiento.getModificadoPor());
-            ps.setDate(6, lineamiento.getModificadoEn());
+            
+            ps.setString(1, lineamiento.getDescripcion());
+            ps.setString(2, lineamiento.getCreadoPor());
+            ps.setDate(3, lineamiento.getCreadoEn());
+            ps.setString(4, lineamiento.getModificadoPor());
+            ps.setDate(5, lineamiento.getModificadoEn());
             ps.execute();
             ps.close();
             //combo.setCodigo(id);            

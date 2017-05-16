@@ -28,7 +28,7 @@ public class ProyectoDao {
         this.DBConnection = openConnection;
     }
  
-    public boolean createProyecto(Proyecto proyecto) {
+    public int createProyecto(Proyecto proyecto) {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
@@ -52,14 +52,16 @@ public class ProyectoDao {
             ps.setString(6, proyecto.getRutaProyecto());
             ps.setString(7, proyecto.getCreadoPor());
             ps.setDate(8, proyecto.getCreadoEn());
-            ps.execute();
+            ResultSet rs =ps.executeQuery();
+            //Falta capturar el Id del ultimo registro
+            
             ps.close();
             //combo.setCodigo(id);            
-            return true;
+            return proyecto.getID();
         } catch (SQLException e) {
             System.out.println("Error en Proyecto DAO" + e.getMessage());
             Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
-            return false;
+            return 0;
         }
 
     }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public interface IProyecto {
         
-    public boolean createProyecto(Proyecto proyecto);
+    public int createProyecto(Proyecto proyecto);
     public boolean deleteProyecto(int ID);
     public boolean updateProyecto(Proyecto proyecto);
     //public Proyecto getProyectoById(int id);   
