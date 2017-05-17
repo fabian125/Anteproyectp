@@ -5,10 +5,6 @@
         <group>
             <file>file:/C:/Users/jarteaga/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.view/web/index.xhtml</file>
         </group>
-        <group name="PYME_Middleware">
-            <file>file:/E:/PracticaEmpresarial/Anteproyectp/edu.uniajc.view/web/LineamientosDetalle.xhtml</file>
-            <file>file:/E:/PracticaEmpresarial/Anteproyectp/edu.uniajc.view/web/Proyectos.xhtml</file>
-            <file>file:/E:/PracticaEmpresarial/Anteproyectp/edu.uniajc.view/src/java/edu/uniajc/iAnteproyecto/view/ProyectoBean.java</file>
-        </group>
+        <group name="PYME_Middleware"/>
     </open-files>
 </project-private>
