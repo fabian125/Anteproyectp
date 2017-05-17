@@ -163,5 +163,26 @@ public class IntegrantesServices implements IIntegrantes{
             return null;
         }
     }
+
+    @Override
+    public boolean deleteIntegrantesByProyecto(int id) {
+        try {
+
+                // se adquiere la conexion a base de datos desde el servidor de aplicaciones
+                //Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+                 ConexionBD cn = new ConexionBD();
+                IntegrantesDAO dao = new IntegrantesDAO(cn.conexion());
+                boolean flag=dao.deleteIntegrantesByProyecto(id);
+                        cn.conexion().close();
+
+                
+               return flag;
+
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
    
 }

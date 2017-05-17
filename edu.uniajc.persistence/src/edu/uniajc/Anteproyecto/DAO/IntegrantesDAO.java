@@ -86,6 +86,30 @@ public class IntegrantesDAO {
         }
 
     }
+      
+       public boolean deleteIntegrantesByProyecto(int id) {
+     try {
+           
+
+            PreparedStatement ps;
+
+            String SQL = "delete from TB_Integrantes where ID_T_PROYECTO =" +id+" ";
+               
+
+            ps = this.DBConnection.prepareStatement(SQL);
+            ps.execute();
+            ps.close();
+            return true;
+
+            //combo.setCodigo(id);            
+             
+        } catch (SQLException e) {
+            System.out.println("Error en Integrante DAO "+ e.getMessage());
+            Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return false;
+        }
+
+    }
        public boolean updateIntegrantes(Integrantes integrantes) {
        
            try {

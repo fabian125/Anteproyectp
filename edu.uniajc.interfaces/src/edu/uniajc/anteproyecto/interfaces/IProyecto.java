@@ -20,6 +20,7 @@ public interface IProyecto {
     public int createProyecto(Proyecto proyecto);
     public boolean deleteProyecto(int ID);
     public boolean updateProyecto(Proyecto proyecto);
+    public ArrayList<Proyecto> getAllProyectos();
     //public Proyecto getProyectoById(int id);   
     //public ArrayList<Proyecto> getProyectos();
 

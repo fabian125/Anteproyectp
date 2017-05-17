@@ -98,5 +98,30 @@ public class ProyectoServices implements IProyecto
             return false;
         }
     }
+
+    @Override
+    public ArrayList<Proyecto> getAllProyectos() {
+        try {
+
+           
+                // se adquiere la conexion a base de datos desde el servidor de aplicaciones
+               // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+                ConexionBD cn = new ConexionBD();
+               ProyectoDao dao = new ProyectoDao(cn.conexion());
+                	
+
+                
+                ArrayList<Proyecto> list = dao.getAllProyectos();
+                 cn.conexion().close();
+                
+                return list;
+           
+                
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
     
 }

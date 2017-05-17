@@ -298,7 +298,9 @@ public class ProyectoBean {
     public IIntegrantes getServicioIntegrante() {
         return servicioIntegrante;
     }
+    
 
+    
     public void setServicioIntegrante(IIntegrantes servicioIntegrante) {
         this.servicioIntegrante = servicioIntegrante;
     }

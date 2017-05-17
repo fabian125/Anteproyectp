@@ -335,7 +335,41 @@ public class ProyectoDao {
 
     }
 
-    
+    public ArrayList<Proyecto> getAllProyectos() {
+        ArrayList<Proyecto> list = new ArrayList<>(0);
+        try {
+
+            PreparedStatement ps = null;
+
+           final String SQL = "SELECT * from TB_PROYECTO";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Proyecto proyecto = new Proyecto();
+                proyecto.setID(rs.getInt("ID"));
+                proyecto.setId_T_Metodologia(rs.getInt("ID_T_METODOLOGIA"));
+                proyecto.setId_T_Idea(rs.getInt("ID_T_IDEA"));
+                proyecto.setTituloProyecto(rs.getString("TITULOPROYECTO"));
+                proyecto.setResumenProyecto(rs.getString("RESUMENPROYECTO"));
+                proyecto.setId_T_LV_estadoProyecto(rs.getInt("ID_T_LV_ESTADOPROYECTO"));
+                proyecto.setRutaProyecto(rs.getString("RUTAPROYECTO"));
+                proyecto.setCreadoPor(rs.getString("CREADOPOR"));
+                proyecto.setModificadoPor(rs.getString("MODIFICADOPOR"));
+                proyecto.setCreadoEn(rs.getDate("CREADOEN"));
+                proyecto.setModificadoEn(rs.getDate("MODIFICADOEN"));
+                
+
+                list.add(proyecto);
+            }
+            ps.close();
+                       
+            return list;
+        } catch (SQLException e) {
+            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
  
     
 }
