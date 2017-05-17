@@ -30,14 +30,15 @@ public class UsuarioDAO {
       public Usuario getUsuariobyUsername(String valor) throws SQLException {
        
         try {
-            Usuario usuario = new Usuario();
+            Usuario usuario=null;
            
 
             String SQL = "select * from TB_USUARIO where USUARIO  ='" + valor + "' ";
-            System.out.println(SQL);
+            //System.out.println(SQL);
              PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
           if(rs != null){
+                usuario=new Usuario();
                 rs.next();
                 usuario.setId(rs.getInt("ID"));
                 usuario.setId_t_Persona(rs.getInt("ID_T_PERSONA"));

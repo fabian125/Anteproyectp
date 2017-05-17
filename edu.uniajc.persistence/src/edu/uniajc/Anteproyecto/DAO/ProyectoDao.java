@@ -237,14 +237,14 @@ public class ProyectoDao {
         try {
            
 
-            PreparedStatement ps = null;
+        
 
             String SQL = "DELETE FROM TB_Proyecto WHERE ID =" +id+" ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            
             //ResultSet rs = ps.executeQuery();
             //int codigo = rs.getInt("ID");
 
-            ps = this.DBConnection.prepareStatement(SQL);
+                PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -284,10 +284,7 @@ public class ProyectoDao {
             ps.setInt(11, proyecto.getID());
             
             ps.execute();
-            
-            ps = this.DBConnection.prepareStatement(SQL);
-           ps.execute();
-                     ps.close();
+            ps.close();
             return true;
 
             //combo.setCodigo(id);            

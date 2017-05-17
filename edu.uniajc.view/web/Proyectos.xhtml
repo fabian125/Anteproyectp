@@ -57,6 +57,7 @@
                 </h:form>
 
                 <h:form id="forma3">
+                      <p:growl id="grow3" showDetail="true" life="5555"/>  
                     <p:tabView id="tab2">                
 
                         <p:tab title="Añadir Integrantes"> <!-- Nombre  -->
@@ -78,7 +79,7 @@
                                 </p:selectOneMenu> 
 
                                 <p:commandButton 
-                                    update=":forma3:tab2:add_6,:forma3:tab2:add_7,:forma3:tab2:add_8,:forma2:listaPersona"
+                                    update=":forma3:grow3,:forma3:tab2:add_6,:forma3:tab2:add_7,:forma3:tab2:add_8,:forma2:listaPersona"
                                     ajax="true" value="Añadir" action="#{proyectoBean.anadirIntegrantePantalla()}"
                                     />
                             </h:panelGrid>

@@ -213,12 +213,8 @@ public class LineamientoDetalleDAO {
             ps.setDate(6, lineamientoDetalle.getCreadoEn());
             ps.setString(7, lineamientoDetalle.getModificadoPor());
             ps.setDate(8, lineamientoDetalle.getModificadoEn());
-             ps.setInt(9, lineamientoDetalle.getId());
+            ps.setInt(9, lineamientoDetalle.getId());
             ps.execute();
-
-            ps = this.DBConnection.prepareStatement(SQL);
-
-             ps.execute();
             ps.close();
             return true;
 

@@ -64,13 +64,12 @@ public class ProyectoBean {
     private IUsuario servicioUsuario;
     private String configUsuario = "UsuarioServices";
     private String usernamePantalla;
-    
+
     //PERSONA
     private Persona persona;
     private IPersona servicioPersona;
-    private String configPersona ="PersonaServices";
+    private String configPersona = "PersonaServices";
     private List<Persona> listaPersona;
-    
 
     public ProyectoBean() throws NamingException {
         InitialContext ctx = new InitialContext();
@@ -83,7 +82,7 @@ public class ProyectoBean {
         listaIntegrantes = new ArrayList<Integrantes>();
         //usuario
         servicioUsuario = (IUsuario) ctx.lookup(leer.leerArchivo(configUsuario));
-        user =new Usuario();        
+        user = new Usuario();
         //Persona
         servicioPersona = (IPersona) ctx.lookup(leer.leerArchivo(configPersona));
         persona = new Persona();
@@ -115,21 +114,36 @@ public class ProyectoBean {
 
     public void crearProyecto() {
 
-        if (listaIntegrantes!= null && listaIntegrantes.size() > 0) {
+        if (listaIntegrantes != null && listaIntegrantes.size() > 0) {
             proyecto.setCreadoPor("Leon");
             proyecto.setId_T_Metodologia(Integer.parseInt(this.v_select_lineamiento));
             proyecto.setId_T_LV_estadoProyecto(Integer.parseInt(this.v_select_estado));
+            idProyectoCreado = 0;
             idProyectoCreado = servicios.createProyecto(proyecto);
+            if (idProyectoCreado != 0) {
+                boolean flag = false;
+                //Metodo para crear integrantes  
+                for (int i = 0; i < listaIntegrantes.size(); i++) {
+                    listaIntegrantes.get(i).setID_T_Proyecto(idProyectoCreado);
+                    flag = servicioIntegrante.createintegrantes(listaIntegrantes.get(i));
+                }
 
-            //Metodo para crear integrantes  
-            for (int i = 0; i < listaIntegrantes.size(); i++) {
-                listaIntegrantes.get(i).setID_T_Proyecto(idProyectoCreado);
-                servicioIntegrante.createintegrantes(listaIntegrantes.get(i));
+                if (flag) {
+                    limpiarForma();
+                    limpiarCombox();
+                    limpiarLista();
+
+                } else {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo vincular los participantes");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo crear el proyecto");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
-            limpiarForma();
-            limpiarCombox();
-            limpiarLista();
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Debe registrar los integrantes");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -137,28 +151,34 @@ public class ProyectoBean {
     }
 
     public void anadirIntegrantePantalla() {
-        
-        
-        construirIntegrantesBD();
-        persona=servicioPersona.getPersonabyId(user.getId_t_Persona());
-        listaPersona.add(persona);
-        limpiarComboxIntegrante();
-        usernamePantalla = "";
+        this.user = consultarUsuario(usernamePantalla);
+        if (this.user != null) {
+            construirIntegrantesBD();
+            persona = servicioPersona.getPersonabyId(user.getId_t_Persona());
+            listaPersona.add(persona);
+            limpiarComboxIntegrante();
+            this.user = new Usuario();
+            usernamePantalla = "";
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El usuario no existe");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
     }
-    
-    public void construirIntegrantesBD(){
-        consultarUsuario(usernamePantalla);
+
+    public void construirIntegrantesBD() {
+
         this.integrante.setID_T_Usuario(this.user.getId());
         this.integrante.setID_T_LV_TIPOINTEGRANTE(Integer.parseInt(v_select_Tipointegrante));
         this.integrante.setID_T_LV_ESTADOINTEGRANTE(Integer.parseInt(v_select_Estadointegrante));
         this.integrante.setCreadoPor("Leon");
         this.listaIntegrantes.add(integrante);
         this.integrante = new Integrantes();
-        
+
     }
 
-    public void consultarUsuario(String username) {
-        this.user = servicioUsuario.getUsuariobyUsername(username);
+    public Usuario consultarUsuario(String username) {
+        Usuario usuario = servicioUsuario.getUsuariobyUsername(username);
+        return usuario;
 
     }
 
@@ -220,16 +240,16 @@ public class ProyectoBean {
     }
 
     public void eliminarIntegrante(int idPersona) {
-        
+
         int idUser = servicioUsuario.getUsuariobyidPersona(idPersona);
-        
+
         for (int i = 0; i < listaIntegrantes.size(); i++) {
             if (listaIntegrantes.get(i).getID_T_Usuario() == idUser) {
                 listaIntegrantes.remove(i);
             }
         }
         for (int i = 0; i < listaPersona.size(); i++) {
-            if (listaPersona.get(i).getId()== idPersona) {
+            if (listaPersona.get(i).getId() == idPersona) {
                 listaPersona.remove(i);
             }
         }
@@ -434,6 +454,5 @@ public class ProyectoBean {
     public void setListaPersona(List<Persona> listaPersona) {
         this.listaPersona = listaPersona;
     }
-    
 
 }

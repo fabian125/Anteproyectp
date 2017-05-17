@@ -159,7 +159,7 @@ public class LineamientoDAO {
             PreparedStatement ps = null;
 
             String SQL = "delete from TB_Metodologia where ID =" +id+" ";
-            ps = this.DBConnection.prepareStatement(SQL);
+           
             //ResultSet rs = ps.executeQuery();
             //int codigo = rs.getInt("ID");
 
@@ -197,10 +197,7 @@ public class LineamientoDAO {
             ps.setDate(5, lineamiento.getModificadoEn());
             ps.setInt(6,lineamiento.getID());
             ps.execute();
-            
-            ps = this.DBConnection.prepareStatement(SQL);
-           ps.execute();
-                     ps.close();
+            ps.close();
             return true;
 
             //combo.setCodigo(id);            

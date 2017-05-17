@@ -108,11 +108,8 @@ public class IntegrantesDAO {
             ps.setDate(7, integrantes.getCreadoen());
             ps.setString(8, integrantes.getModificadoPor());
             ps.setDate(9, integrantes.getModificadoEn());
-            ps.execute();
-            
-            ps = this.DBConnection.prepareStatement(SQL);
-            ps.execute();
-                     ps.close();
+            ps.execute();          
+            ps.close();
             return true;
 
                      
