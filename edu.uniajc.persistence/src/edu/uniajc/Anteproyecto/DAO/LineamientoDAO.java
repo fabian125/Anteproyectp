@@ -132,7 +132,7 @@ public class LineamientoDAO {
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if(rs != null){
-            rs.first();
+            rs.next();
                 
                 lineamiento.setID(rs.getInt("ID"));
                 lineamiento.setDescripcion(rs.getString("Descripcion"));

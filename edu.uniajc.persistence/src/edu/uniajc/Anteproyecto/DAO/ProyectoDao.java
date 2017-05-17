@@ -27,7 +27,54 @@ public class ProyectoDao {
     public ProyectoDao(Connection openConnection) {
         this.DBConnection = openConnection;
     }
- 
+    
+     public int createProyecto(Proyecto proyecto) {
+        try {
+            java.util.Date fecha = new java.util.Date();
+            java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+             proyecto.setCreadoEn(fechaSQL);
+         
+
+            PreparedStatement ps = null;
+
+            String SQL = "select SQ_TB_Proyecto.nextval ID from dual";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            int codigo = 0;
+            
+            if(rs.next())
+            {
+                codigo=rs.getInt("ID");
+                proyecto.setID(codigo);
+            }
+
+          SQL = "INSERT INTO TB_PROYECTO(ID,ID_T_METODOLOGIA,TituloProyecto, ResumenProyecto, ID_T_LV_EstadoProyecto, RutaProyecto, CreadoPor, CreadoEn) values(?,?,?,?,?,?,?,?)";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ps.setInt(1,proyecto.getID());
+            ps.setInt(2,proyecto.getId_T_Metodologia());           
+            ps.setString(3, proyecto.getTituloProyecto());
+            ps.setString(4, proyecto.getResumenProyecto());
+            ps.setInt(5, proyecto.getId_T_LV_estadoProyecto());
+            ps.setString(6, proyecto.getRutaProyecto());
+            ps.setString(7, proyecto.getCreadoPor());
+            ps.setDate(8, proyecto.getCreadoEn());
+            ps.execute();
+            //Falta capturar el Id del ultimo registro
+            
+            ps.close();
+           
+            //Le asigno el id al objeto proyecto
+            System.out.println("Codigo de Proyecto"+codigo);
+           
+            return codigo;
+        } catch (SQLException e) {
+            System.out.println("Error en Proyecto DAO" + e.getMessage());
+            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return 0;
+        }
+
+    }
+ /*
     public int createProyecto(Proyecto proyecto) {
         try {
             java.util.Date fecha = new java.util.Date();
@@ -64,7 +111,7 @@ public class ProyectoDao {
             return 0;
         }
 
-    }
+    }*/
 
     
     
@@ -161,7 +208,7 @@ public class ProyectoDao {
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
              if (rs != null) {
-                rs.first();
+                rs.next();
                 proyecto.setId(rs.getInt("p.ID"));
                 proyecto.setDescripcionMetodologia(rs.getString("m.Descripcion"));
                 proyecto.setTitulo_idea(rs.getString("i.Titulo"));

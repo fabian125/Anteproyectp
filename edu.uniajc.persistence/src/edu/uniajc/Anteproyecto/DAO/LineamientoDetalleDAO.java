@@ -111,7 +111,7 @@ public class LineamientoDetalleDAO {
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
-                rs.first();
+               rs.next();
 
                 lineamientoDetalle.setId(rs.getInt("ID"));
                 lineamientoDetalle.setIdLineamiento(rs.getInt("ID_T_Metodologia"));

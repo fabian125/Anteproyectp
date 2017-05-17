@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +23,7 @@ public class IntegrantesDAO {
     public IntegrantesDAO(Connection openConnection) {
         this.DBConnection = openConnection;
     }
+   
  
     public boolean createIntegrantes(Integrantes integrantes) {
       try {
@@ -31,10 +32,10 @@ public class IntegrantesDAO {
              integrantes.setCreadoen(fechaSQL);
             // lineamiento.setModificadoEn(fechaSQL);
 
-            PreparedStatement ps = null;
+            PreparedStatement ps;
 
-            String SQL = "select SQ_TB_ROL.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            String SQL ;
+            //ps = this.DBConnection.prepareStatement(SQL);
             //ResultSet rs = ps.executeQuery();
             //int codigo = rs.getInt("ID");
 
@@ -55,7 +56,7 @@ public class IntegrantesDAO {
                      
             return true;
         } catch (SQLException e) {
-            System.out.println("Error en LineamientoDao" + e.getMessage());
+            System.out.println("Error en Integrante DAO" + e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
@@ -66,11 +67,10 @@ public class IntegrantesDAO {
      try {
            
 
-            PreparedStatement ps = null;
+            PreparedStatement ps;
 
             String SQL = "delete from TB_Integrantes where ID =" +id+" ";
-            ps = this.DBConnection.prepareStatement(SQL);
-       
+               
 
             ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
@@ -80,7 +80,7 @@ public class IntegrantesDAO {
             //combo.setCodigo(id);            
              
         } catch (SQLException e) {
-            System.out.println("Error en LineamientoDao "+ e.getMessage());
+            System.out.println("Error en Integrante DAO "+ e.getMessage());
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
@@ -95,11 +95,11 @@ public class IntegrantesDAO {
              integrantes.setModificadoEn(fechaSQL);
            
 
-            PreparedStatement ps = null;
+            PreparedStatement ps ;
             String SQL = "update TB_Metodologia set ID_T_Proyecto = ?, ID_T_Usuario = ? , ID_T_LV_TIPOINTEGRANTE = ? , ID_T_LV_ESTADOINTEGRANTE = ? , Observacion = ?, CreadoPor = ? , Creadoen = ?, ModificadoPor = ? , ModificadoEn = ? where id = ?";
             ps = this.DBConnection.prepareStatement(SQL);
     
-             ps.setInt(1, integrantes.getID_T_Proyecto());
+            ps.setInt(1, integrantes.getID_T_Proyecto());
             ps.setInt(2, integrantes.getID_T_Usuario());
             ps.setInt(3, integrantes.getID_T_LV_TIPOINTEGRANTE());
             ps.setInt(4, integrantes.getID_T_LV_ESTADOINTEGRANTE());
@@ -111,14 +111,14 @@ public class IntegrantesDAO {
             ps.execute();
             
             ps = this.DBConnection.prepareStatement(SQL);
-           ps.execute();
+            ps.execute();
                      ps.close();
             return true;
 
                      
              
         } catch (SQLException e) {
-            System.out.println("Error en Lineamiento DAO "+ e.getMessage() );
+            System.out.println("Error en Integrante DAO "+ e.getMessage() );
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
@@ -131,13 +131,13 @@ public class IntegrantesDAO {
       Integrantes integrante= new Integrantes();
         try {
 
-            PreparedStatement ps = null;
+            PreparedStatement ps ;
 
             String SQL = "select * from TB_Integrantes where ID =" +ID_T_LV_TIPOINTEGRANTE+"";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if(rs != null){
-            rs.first();
+            rs.next();
                 
                 integrante.setID_T_Proyecto(rs.getInt("ID_T_Proyecto"));
                 integrante.setID_T_Usuario(rs.getInt("ID_T_Usuario"));
@@ -165,13 +165,13 @@ public class IntegrantesDAO {
         Integrantes integrante= new Integrantes();
        try {
 
-            PreparedStatement ps = null;
+            PreparedStatement ps;
 
             String SQL = "select * from TB_Integrantes where ID =" +ID_T_Proyecto+" ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if(rs != null){
-            rs.first();
+            rs.next();
                 
                 integrante.setID_T_Proyecto(rs.getInt("ID_T_Proyecto"));
                 integrante.setID_T_Usuario(rs.getInt("ID_T_Usuario"));
@@ -200,7 +200,7 @@ public class IntegrantesDAO {
         ArrayList<Integrantes> list = new ArrayList<Integrantes>();
         try {
 
-            PreparedStatement ps = null;
+            PreparedStatement ps;
 
             String SQL = "select * from ";
             ps = this.DBConnection.prepareStatement(SQL);
