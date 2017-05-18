@@ -29,18 +29,22 @@
                         <p:column headerText="Codigo ">
                             <p:outputLabel value="#{proyecto.ID}"></p:outputLabel>                  
                         </p:column>
-                        <p:column headerText="Lineamiento ">
+                       
+                        <p:column headerText="Lineamiento " style="width:150px"   >
                            
-                            <h:selectOneMenu value="#{proyecto.id_T_Metodologia}" readonly="true">  
+                            <h:selectOneMenu value="#{proyecto.id_T_Metodologia}" readonly="false" disabled="true">  
                                 <f:selectItems value="#{listadoProyectoBean.itemsLineamiento}"/>  
                             </h:selectOneMenu> 
                                  
                         </p:column>
 
-                        <p:column headerText="Titulo ">
+                        
+                        
+                        
+                        <p:column headerText="Titulo" style="width:120px" filterBy="#{proyecto.tituloProyecto}" filterMatchMode="contains">
                             <p:outputLabel value="#{proyecto.tituloProyecto}"></p:outputLabel>                  
                         </p:column>
-                        
+                    
                         <p:column headerText="Resumen ">
                             <p:outputLabel value="#{proyecto.resumenProyecto}"></p:outputLabel>                  
                         </p:column>
@@ -48,7 +52,7 @@
 
                         <p:column headerText="Estado ">
                              
-                            <h:selectOneMenu value="#{proyecto.id_T_LV_estadoProyecto}" readonly="true">  
+                            <h:selectOneMenu value="#{proyecto.id_T_LV_estadoProyecto}" readonly="true" disabled="true">  
                                 <f:selectItems value="#{listadoProyectoBean.itemsEstadoProyecto}"/>  
                             </h:selectOneMenu> 
 
@@ -64,14 +68,14 @@
                         </p:column>
 
                         <!-- Borrar -->
-                        <p:column headerText="" style="width:30px" >
+                        <p:column headerText="" style="width:30px" exportable="false">
                             <p:commandButton 
                                 update=":forma2:grow,:forma2:listaProyectos"
                                 ajax="true" icon="ui-icon-trash"
                                 action="#{listadoProyectoBean.eliminar(proyecto.ID)}" />
                         </p:column> 
 
-                        <p:column headerText="" style="width:30px" >
+                        <p:column headerText="" style="width:30px" exportable="false" >
                             <p:commandButton 
                                 update=":forma2:grow,:forma2:listaProyectos"
                                 ajax="true" icon="ui-icon-search" 
@@ -83,6 +87,20 @@
                         </p:column> 
 
                     </p:dataTable>
+                    
+                       <h:commandLink>
+                            <h:graphicImage url="resources/image/XLS.png" width="50"/>
+                            <p:dataExporter type="xls" target="listaProyectos" fileName="Anteproyectos"/>
+                            </h:commandLink>
+            
+                            <h:commandLink>
+                            <h:graphicImage url="resources/image/pdf.png" width="50"/>
+                            <p:dataExporter type="pdf" target="listaProyectos" fileName="Anteproyectos"/>
+                            </h:commandLink>
+                    
+                    
+                    
+                    
 
                 </h:form>
             </ui:define>

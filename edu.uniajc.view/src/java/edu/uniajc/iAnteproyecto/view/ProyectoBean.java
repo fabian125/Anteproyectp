@@ -456,5 +456,6 @@ public class ProyectoBean {
     public void setListaPersona(List<Persona> listaPersona) {
         this.listaPersona = listaPersona;
     }
-
+    
+  
 }

@@ -214,5 +214,12 @@ public class ListadoProBean {
     public void setItemsLineamiento(ArrayList<SelectItem> itemsLineamiento) {
         this.itemsLineamiento = itemsLineamiento;
     }
-
+    
+   
 }
+    
+    
+    
+    
+
+
