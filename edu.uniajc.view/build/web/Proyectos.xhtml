@@ -44,19 +44,22 @@
                                 <p:outputLabel for="add_2" value="Resumen :" />
                                 <p:inputTextarea id="add_2" value="#{proyectoBean.proyecto.resumenProyecto}" required="true" requiredMessage="Campo requerido"/>                       
 
+    
                             </h:panelGrid>
                             <p:separator />
                             <p:commandButton 
                         update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_5,:forma2:listaPersona"
-                        ajax="true" value="Crear Proyecto" action="#{proyectoBean.crearProyecto}"
-                        />
+                        ajax="true" value="Crear Proyecto" action="#{proyectoBean.crearProyecto}"/>
                         </p:tab>
 
                     </p:tabView>
 
                 </h:form>
 
+                <p:commandButton icon="ui-icon-person" value="Agregar Integrantes Al Proyecto" type="button" onclick="PF('dlg2').show();"  />
+    <p:dialog header="Integrantes" widgetVar="dlg2" modal="true" height="300">
                 <h:form id="forma3">
+                    
                       <p:growl id="grow3" showDetail="true" life="5555"/>  
                     <p:tabView id="tab2">                
 
@@ -88,6 +91,8 @@
                     </p:tabView>
 
                 </h:form>
+                 </p:dialog>
+              
 
                 <h:form id="forma2">
 
@@ -113,6 +118,7 @@
                           <p:column headerText="Segundo Apellido">
                               <p:outputLabel value="#{persona.segundoapellido}"></p:outputLabel>
                         </p:column>
+
 
                         <!-- Editar -->
 
