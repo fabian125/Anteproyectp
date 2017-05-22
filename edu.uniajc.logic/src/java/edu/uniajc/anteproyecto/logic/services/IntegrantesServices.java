@@ -115,7 +115,7 @@ public class IntegrantesServices implements IIntegrantes{
     }
   
      @Override
-  public Integrantes getIntegrantesByProyecto(int ID_T_Proyecto) {
+  public List<Integrantes> getIntegrantesByProyecto(int ID_T_Proyecto) {
         try {
 
            
@@ -126,10 +126,10 @@ public class IntegrantesServices implements IIntegrantes{
                 	
 
                 
-                Integrantes integrantes = dao.getIntegrantesByProyecto(ID_T_Proyecto);
+                List <Integrantes> list = dao.getIntegrantesByProyecto(ID_T_Proyecto);
                  cn.conexion().close();
                 
-                return integrantes;
+                return list;
            
                 
             
@@ -173,6 +173,27 @@ public class IntegrantesServices implements IIntegrantes{
                  ConexionBD cn = new ConexionBD();
                 IntegrantesDAO dao = new IntegrantesDAO(cn.conexion());
                 boolean flag=dao.deleteIntegrantesByProyecto(id);
+                        cn.conexion().close();
+
+                
+               return flag;
+
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteIntegrantesbyUserandProyect(int iduser, int idProy) {
+        try {
+
+                // se adquiere la conexion a base de datos desde el servidor de aplicaciones
+                //Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+                 ConexionBD cn = new ConexionBD();
+                IntegrantesDAO dao = new IntegrantesDAO(cn.conexion());
+                boolean flag=dao.deleteIntegrantesbyUserandProyect(iduser , idProy);
                         cn.conexion().close();
 
                 

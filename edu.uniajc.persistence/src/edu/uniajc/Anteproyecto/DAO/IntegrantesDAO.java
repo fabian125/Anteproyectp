@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 //import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,6 +71,30 @@ public class IntegrantesDAO {
             PreparedStatement ps;
 
             String SQL = "delete from TB_Integrantes where ID =" +id+" ";
+               
+
+            ps = this.DBConnection.prepareStatement(SQL);
+            ps.execute();
+            ps.close();
+            return true;
+
+            //combo.setCodigo(id);            
+             
+        } catch (SQLException e) {
+            System.out.println("Error en Integrante DAO "+ e.getMessage());
+            Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return false;
+        }
+
+    }
+      
+      public boolean deleteIntegrantesbyUserandProyect(int idUser , int idProye) {
+     try {
+           
+
+            PreparedStatement ps;
+
+            String SQL = "delete from TB_Integrantes where ID_T_USUARIO ="+idUser +" and ID_T_PROYECTO=" + idProye+" ";
                
 
             ps = this.DBConnection.prepareStatement(SQL);
@@ -181,19 +206,19 @@ public class IntegrantesDAO {
 
     }
      
-   public Integrantes getIntegrantesByProyecto(int ID_T_Proyecto){
+   public List<Integrantes> getIntegrantesByProyecto(int ID_T_Proyecto){
   
-        Integrantes integrante= new Integrantes();
+        List<Integrantes> list = new ArrayList<Integrantes>();
        try {
 
             PreparedStatement ps;
 
-            String SQL = "select * from TB_Integrantes where ID =" +ID_T_Proyecto+" ";
+            String SQL = "select * from TB_Integrantes where ID_T_PROYECTO =" +ID_T_Proyecto+" ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if(rs != null){
-            rs.next();
-                
+           while (rs.next()) {
+            Integrantes integrante = new Integrantes();
+        
                 integrante.setID_T_Proyecto(rs.getInt("ID_T_Proyecto"));
                 integrante.setID_T_Usuario(rs.getInt("ID_T_Usuario"));
                 integrante.setID_T_LV_TIPOINTEGRANTE(rs.getInt("ID_T_LV_TIPOINTEGRANTE"));
@@ -203,11 +228,12 @@ public class IntegrantesDAO {
                 integrante.setCreadoen(rs.getDate("Creadoen"));
                 integrante.setModificadoPor(rs.getString("ModificadoPor"));
                 integrante.setModificadoEn(rs.getDate("ModificadoEn"));
+                list.add(integrante);
     
             }
             ps.close();
                        
-            return integrante;
+            return list;
         } catch (SQLException e) {
             Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
@@ -238,7 +264,7 @@ public class IntegrantesDAO {
                 integrante.setCreadoen(rs.getDate("Creadoen"));
                 integrante.setModificadoPor(rs.getString("ModificadoPor"));
                 integrante.setModificadoEn(rs.getDate("ModificadoEn"));
-
+                list.add(integrante);
             }
             ps.close();
                        

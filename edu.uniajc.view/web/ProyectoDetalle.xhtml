@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <body>
+        <ui:composition template="./TEMPLATES/Home.xhtml">
+            <ui:define name="content">
+                <h:form id="forma">
+
+                    <p:growl id="grow" showDetail="true" life="5555"/>  
+
+                    <p:tabView id="tab">
+
+
+                        <p:tab title="Datos Proyecto"> <!-- Nombre  -->
+                            <h:panelGrid columns="4" cellpadding="5">
+
+                                <p:outputLabel for="add_1" value="Titulo :" />
+                                <p:inputText   id="add_1" value="#{proyectoDetalleBean.proyecto.tituloProyecto}" required="true" requiredMessage="Campo requerido"/>
+
+
+
+                                <p:outputLabel for="add_3" value="Ruta :" />
+                                <p:inputText   id="add_3" value="#{proyectoDetalleBean.proyecto.rutaProyecto}" required="true" requiredMessage="Campo requerido"/>
+
+                                <p:outputLabel for="add_4" value="Lineamiento :" />
+                                <p:selectOneMenu  id="add_4" value="#{proyectoDetalleBean.v_select_lineamiento}" required="true" requiredMessage="Campo requerido">  
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                    <f:selectItems value="#{proyectoDetalleBean.itemsLineamiento}"/>  
+                                </p:selectOneMenu> 
+
+                                <p:outputLabel for="add_5" value="Estado Proyecto :" />
+                                <p:selectOneMenu  id="add_5" value="#{proyectoDetalleBean.v_select_estado}" required="true" requiredMessage="Campo requerido">  
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                    <f:selectItems value="#{proyectoDetalleBean.itemsEstadoProyecto}"/>  
+                                </p:selectOneMenu> 
+
+
+                                <p:outputLabel for="add_2" value="Resumen :" />
+                                <p:inputTextarea id="add_2" value="#{proyectoDetalleBean.proyecto.resumenProyecto}" required="true" requiredMessage="Campo requerido"/>                       
+
+                            </h:panelGrid>
+                            <p:separator />
+                            <p:commandButton 
+                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_5,:forma2:listaPersona"
+                                ajax="true" value="Guardar Proyecto" action="#{proyectoDetalleBean.updateProyecto}"/>
+                        </p:tab>
+
+                    </p:tabView>
+
+                </h:form>
+
+                <p:commandButton icon="ui-icon-person" value="Agregar Integrantes Al Proyecto" type="button" onclick="PF('dlg2').show();"  />
+                <p:dialog header="Integrantes" widgetVar="dlg2" modal="true" height="300">
+                    <h:form id="forma3">
+
+                        <p:growl id="grow3" showDetail="true" life="5555"/>  
+                        <p:tabView id="tab2">                
+
+                            <p:tab title="Añadir Integrantes"> <!-- Nombre  -->
+                                <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
+                                <h:panelGrid columns="4" cellpadding="5">
+                                    <p:outputLabel for="add_6" value="Usuario :" />
+                                    <p:inputText id="add_6" value="#{proyectoDetalleBean.usernamePantalla}" required="true" requiredMessage="Campo requerido"/>                       
+
+                                    <p:outputLabel for="add_7" value="Tipo Integrante :" />
+                                    <p:selectOneMenu  id="add_7" value="#{proyectoDetalleBean.v_select_Tipointegrante}" required="true" requiredMessage="Campo requerido">  
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                        <f:selectItems value="#{proyectoDetalleBean.itemsTipoIntegrante}"/>  
+                                    </p:selectOneMenu> 
+
+                                    <p:outputLabel for="add_8" value="Estado Integrante :" />
+                                    <p:selectOneMenu  id="add_8" value="#{proyectoDetalleBean.v_select_Estadointegrante}" required="true" requiredMessage="Campo requerido">  
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                        <f:selectItems value="#{proyectoDetalleBean.itemsEstadoIntegrante}"/>  
+                                    </p:selectOneMenu> 
+
+                                    <p:commandButton 
+                                        update=":forma3:grow3,:forma3:tab2:add_6,:forma3:tab2:add_7,:forma3:tab2:add_8,:forma2:listaPersona"
+                                        ajax="true" value="Añadir" action="#{proyectoDetalleBean.anadirIntegrantePantalla()}"
+                                        />
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:tabView>
+
+                    </h:form>
+                </p:dialog>
+
+
+                <h:form id="forma2">
+
+                    <p:dataTable id="listaPersona" value="#{proyectoDetalleBean.listaPersona}"
+                                 var="persona" 
+                                 paginator="true" 
+                                 rows="20" 
+                                 editable="true"
+                                 paginatorPosition="bottom"
+                                 >
+                        <p:column headerText="Identificacion">
+                            <p:outputLabel value="#{persona.numeroidentificacion}"></p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Nombres">
+                            <p:outputLabel value="#{persona.nombres}"></p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Primer Apellido">
+                            <p:outputLabel value="#{persona.primerapellido}"></p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Segundo Apellido">
+                            <p:outputLabel value="#{persona.segundoapellido}"></p:outputLabel>
+                        </p:column>
+
+
+                        <!-- Editar -->
+
+                        <!-- Borrar -->
+                        <p:column headerText="" style="width:30px" >
+                            <p:commandButton 
+                                update=":forma:grow,listaPersona"
+                                ajax="true" icon="ui-icon-trash"
+                                action="#{proyectoDetalleBean.eliminarIntegrante(persona.id)}" />
+                        </p:column> 
+
+                    </p:dataTable>
+
+
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

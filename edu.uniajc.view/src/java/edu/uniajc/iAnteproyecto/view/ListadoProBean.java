@@ -31,7 +31,7 @@ import org.primefaces.event.RowEditEvent;
 @ViewScoped
 public class ListadoProBean {
 
-    public static final String KEY = "lineamiento";
+    public static final String KEY = "proyecto";
     private IProyecto servicios;
     private String config = "ProyectoServices";
     private List<Proyecto> listaProyectos;
@@ -59,7 +59,7 @@ public class ListadoProBean {
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().getSessionMap().put(KEY, proyectoTable);
-        return "DetalleProyecto.xhtml";
+        return "ProyectoDetalle.xhtml";
 
     }
 

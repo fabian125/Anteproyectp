@@ -67,4 +67,29 @@ public class UsuarioServices implements IUsuario{
         }
     }
     
+     @Override
+    public Usuario getUsuarioById(int id) {
+        try {
+
+           
+                // se adquiere la conexion a base de datos desde el servidor de aplicaciones
+               // Connection dbConnection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
+              ConexionBD cn = new ConexionBD(); 
+              UsuarioDAO dao = new UsuarioDAO(cn.conexion());
+                	
+
+                
+               Usuario resultado= dao.getUsuarioById(id);
+                 cn.conexion().close();
+                
+                return resultado;
+           
+                
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
 }

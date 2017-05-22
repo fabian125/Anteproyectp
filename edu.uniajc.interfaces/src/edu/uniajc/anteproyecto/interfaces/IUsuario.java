@@ -14,4 +14,5 @@ import edu.uniajc.anteproyecto.interfaces.model.Usuario;
 public interface IUsuario {
     public Usuario getUsuariobyUsername(String usuario);
     public int getUsuariobyidPersona(int idPersona);
+    public Usuario getUsuarioById(int id);
 }

@@ -268,20 +268,20 @@ public class ProyectoDao {
            
 
             PreparedStatement ps = null;
-            String SQL = "UPDATE TB_Proyecto SET ID_T_METODOLOGIA = ?,ID_T_Idea = ?,TituloProyecto = ?,ResumenProyecto = ?,ID_T_LV_EstadoProyecto = ?, RutaProyecto= ?, CreadoPor= ?, CreadoEn= ?, ModificadoPor= ?, ModificadoEn= ? where ID = ?";
+            String SQL = "UPDATE TB_Proyecto SET ID_T_METODOLOGIA = ?,TituloProyecto = ?,ResumenProyecto = ?,ID_T_LV_EstadoProyecto = ?, RutaProyecto= ?, CreadoPor= ?, CreadoEn= ?, ModificadoPor= ?, ModificadoEn= ? where ID = ?";
             ps = this.DBConnection.prepareStatement(SQL);
             
             ps.setInt(1, proyecto.getId_T_Metodologia());
-            ps.setInt(2, proyecto.getId_T_Idea());
-            ps.setString(3, proyecto.getTituloProyecto());
-            ps.setString(4, proyecto.getResumenProyecto());
-            ps.setInt(5, proyecto.getId_T_LV_estadoProyecto());
-            ps.setString(6, proyecto.getRutaProyecto());
-            ps.setString(7, proyecto.getCreadoPor());
-            ps.setDate(8, proyecto.getCreadoEn());
-            ps.setString(9, proyecto.getModificadoPor());
-            ps.setDate(10, proyecto.getModificadoEn());
-            ps.setInt(11, proyecto.getID());
+            
+            ps.setString(2, proyecto.getTituloProyecto());
+            ps.setString(3, proyecto.getResumenProyecto());
+            ps.setInt(4, proyecto.getId_T_LV_estadoProyecto());
+            ps.setString(5, proyecto.getRutaProyecto());
+            ps.setString(6, proyecto.getCreadoPor());
+            ps.setDate(7, proyecto.getCreadoEn());
+            ps.setString(8, proyecto.getModificadoPor());
+            ps.setDate(9, proyecto.getModificadoEn());
+            ps.setInt(10, proyecto.getID());
             
             ps.execute();
             ps.close();

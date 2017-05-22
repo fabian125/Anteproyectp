@@ -22,8 +22,8 @@ public interface IIntegrantes {
     public boolean deleteIntegrantesByProyecto(int id);
     public boolean updateIntegrantes(Integrantes integrantes);
     public Integrantes getIntegrantesByTipoIntegrante(int ID_T_LV_TIPOINTEGRANTE);   
-    public Integrantes getIntegrantesByProyecto(int ID_T_Proyecto);
-    
+    public List<Integrantes> getIntegrantesByProyecto(int ID_T_Proyecto);
+    public boolean deleteIntegrantesbyUserandProyect(int iduser, int idProy);
     public ArrayList<Integrantes> getIntegrantesByTipoIntegrantes(int ID_T_LV_TIPOINTEGRANTE );
     
    
