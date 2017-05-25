@@ -103,20 +103,9 @@ public class ListadoProBean {
     }
 
     public void eliminar(int IdProyecto) {
-        boolean flag = false;
-        boolean flag2 = servicioIntegrante.deleteIntegrantesByProyecto(IdProyecto);
-        for (Proyecto proyectoEliminar : listaProyectos) {
-            if (proyectoEliminar.getID() == IdProyecto) {
-
-                if (servicios.deleteProyecto(IdProyecto)) {
-                    flag = true;
-                    break;
-
-                }
-            }
-        }
         
-
+        boolean flag2 = servicioIntegrante.deleteIntegrantesByProyecto(IdProyecto);
+        boolean flag = servicios.deleteProyecto(IdProyecto);
         listaProyectos = servicios.getAllProyectos();
         if (flag && flag2) {
             listaProyectos = servicios.getAllProyectos();
