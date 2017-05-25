@@ -108,7 +108,6 @@ public class ListadoProBean {
         boolean flag = servicios.deleteProyecto(IdProyecto);
         listaProyectos = servicios.getAllProyectos();
         if (flag && flag2) {
-            listaProyectos = servicios.getAllProyectos();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Proyecto Fue eliminado con sus integrantes.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
