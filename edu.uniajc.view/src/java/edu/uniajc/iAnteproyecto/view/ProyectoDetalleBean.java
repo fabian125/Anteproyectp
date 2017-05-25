@@ -16,7 +16,6 @@ import edu.uniajc.anteproyecto.interfaces.model.ListaValoresDetalle;
 import edu.uniajc.anteproyecto.interfaces.model.Persona;
 import edu.uniajc.anteproyecto.interfaces.model.Proyecto;
 import edu.uniajc.anteproyecto.interfaces.model.Usuario;
-import edu.uniajc.anteproyecto.logic.services.IntegrantesServices;
 import edu.uniajc.anteproyecto.logic.services.LineamientoServices;
 import edu.uniajc.anteproyecto.logic.services.ListaValorDetalleServices;
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class ProyectoDetalleBean {
     private IProyecto servicios;
     private Proyecto proyecto;
     private String configProyecto = "ProyectoServices";
-   // int idProyectoCreado;
+    // int idProyectoCreado;
     private LeerPropiedades leer = new LeerPropiedades();
 
     //Combos
@@ -74,33 +73,34 @@ public class ProyectoDetalleBean {
 
     public ProyectoDetalleBean() throws NamingException {
         InitialContext ctx = new InitialContext();
-      
+
         //proyecto
         servicios = (IProyecto) ctx.lookup(leer.leerArchivo(configProyecto));
-         this.cargarProyecto();
+        this.cargarProyecto();
         v_select_lineamiento = String.valueOf(proyecto.getId_T_Metodologia());
         v_select_estado = String.valueOf(proyecto.getId_T_LV_estadoProyecto());
         //integrante   
-        this.integrante=new Integrantes();
+        this.integrante = new Integrantes();
         servicioIntegrante = (IIntegrantes) ctx.lookup(leer.leerArchivo(configIntegrante));
         listaIntegrantes = servicioIntegrante.getIntegrantesByProyecto(proyecto.getID());
         //usuario
         servicioUsuario = (IUsuario) ctx.lookup(leer.leerArchivo(configUsuario));
-       
+
         //Persona
         this.persona = new Persona();
         servicioPersona = (IPersona) ctx.lookup(leer.leerArchivo(configPersona));
-        listaPersona= new ArrayList<Persona>();
+        listaPersona = new ArrayList<Persona>();
         ejecuteMetodos();
     }
-    public void cargarProyecto(){
+
+    public void cargarProyecto() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext extContext = facesContext.getExternalContext();
         this.proyecto = (Proyecto) extContext.getSessionMap().get(ListadoProBean.KEY);
         extContext.getSessionMap().remove(ListadoProBean.KEY);
-        
-        
+
     }
+
     public ArrayList<SelectItem> Consultar_Estado_combo() {
         ListaValorDetalleServices serviciosLine = new ListaValorDetalleServices();
 
@@ -122,7 +122,7 @@ public class ProyectoDetalleBean {
         }
         return items;
     }
- 
+
     public void limpiarCombox() {
         //v_select_lineamiento="";
         v_select_lineamiento = "";
@@ -143,15 +143,17 @@ public class ProyectoDetalleBean {
         this.itemsEstadoIntegrante = Consultar_EstadoInt_combo();
         this.itemsTipoIntegrante = Consultar_TipoInt_combo();
         cargarPersonas();
-       
+
         // return  null;
     }
-     public Usuario consultarUsuario(String username) {
+
+    public Usuario consultarUsuario(String username) {
         Usuario usuario = servicioUsuario.getUsuariobyUsername(username);
         return usuario;
 
     }
-      public void anadirIntegrantePantalla() {
+
+    public void anadirIntegrantePantalla() {
         this.user = consultarUsuario(usernamePantalla);
         if (this.user != null) {
             construirIntegrantesBD();
@@ -165,28 +167,28 @@ public class ProyectoDetalleBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-      
-      public void updateProyecto() {
-         
-            boolean flag;
+
+    public void updateProyecto() {
+
+        boolean flag;
         if (listaIntegrantes != null && listaIntegrantes.size() > 0) {
             proyecto.setCreadoPor("Leon");
             proyecto.setId_T_Metodologia(Integer.parseInt(this.v_select_lineamiento));
-            proyecto.setId_T_LV_estadoProyecto(Integer.parseInt(this.v_select_estado));            
+            proyecto.setId_T_LV_estadoProyecto(Integer.parseInt(this.v_select_estado));
             servicios.updateProyecto(proyecto);
             servicioIntegrante.deleteIntegrantesByProyecto(proyecto.getID());
-                          
-                //Metodo para crear integrantes  
-                for (int i = 0; i < listaIntegrantes.size(); i++) {
-                    listaIntegrantes.get(i).setID_T_Proyecto(proyecto.getID());
-                    servicioIntegrante.createintegrantes(listaIntegrantes.get(i));
-                           
-                }
 
-        }else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo crear el proyecto, debe tener minimo un integrante");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
+            //Metodo para crear integrantes  
+            for (int i = 0; i < listaIntegrantes.size(); i++) {
+                listaIntegrantes.get(i).setID_T_Proyecto(proyecto.getID());
+                servicioIntegrante.createintegrantes(listaIntegrantes.get(i));
+
             }
+
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo crear el proyecto, debe tener minimo un integrante");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
     }
 
     public void construirIntegrantesBD() {
@@ -199,14 +201,14 @@ public class ProyectoDetalleBean {
         this.integrante = new Integrantes();
 
     }
-    
-    public void cargarPersonas(){
-      for(int i=0; i< this.listaIntegrantes.size();i++){
-          Usuario usu=servicioUsuario.getUsuarioById(listaIntegrantes.get(i).getID_T_Usuario());
-          Persona per = servicioPersona.getPersonabyId(usu.getId_t_Persona());
-          listaPersona.add(per);          
-      }
-         
+
+    public void cargarPersonas() {
+        for (int i = 0; i < this.listaIntegrantes.size(); i++) {
+            Usuario usu = servicioUsuario.getUsuarioById(listaIntegrantes.get(i).getID_T_Usuario());
+            Persona per = servicioPersona.getPersonabyId(usu.getId_t_Persona());
+            listaPersona.add(per);
+        }
+
     }
 
     public ArrayList<SelectItem> Consultar_EstadoInt_combo() {
@@ -240,7 +242,7 @@ public class ProyectoDetalleBean {
     public void eliminarIntegrante(int idPersona) {
 
         int idUser = servicioUsuario.getUsuariobyidPersona(idPersona);
-        
+
         for (int i = 0; i < listaIntegrantes.size(); i++) {
             if (listaIntegrantes.get(i).getID_T_Usuario() == idUser) {
                 listaIntegrantes.remove(i);
@@ -277,8 +279,6 @@ public class ProyectoDetalleBean {
         this.configProyecto = configProyecto;
     }
 
-   
-
     public Integrantes getIntegrante() {
         return integrante;
     }
@@ -290,9 +290,7 @@ public class ProyectoDetalleBean {
     public IIntegrantes getServicioIntegrante() {
         return servicioIntegrante;
     }
-    
 
-    
     public void setServicioIntegrante(IIntegrantes servicioIntegrante) {
         this.servicioIntegrante = servicioIntegrante;
     }
@@ -448,6 +446,5 @@ public class ProyectoDetalleBean {
     public void setListaPersona(List<Persona> listaPersona) {
         this.listaPersona = listaPersona;
     }
-    
-  
+
 }
