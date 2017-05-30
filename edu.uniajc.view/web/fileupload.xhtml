@@ -8,9 +8,11 @@
   <h:body>
      <h:form id="form" >
  
-         <p:fileUpload fileUploadListener="#{fileUploadController.upload}" mode="advanced" dragDropSupport="true"
+         <p:fileUpload fileUploadListener="#{fileUploadController.upload}" mode="advanced" dragDropSupport="true" update="messages"
                           />
   
+         
+         <p:growl id="messages" showDetail="true" />
     </h:form>
   </h:body>
 </html>

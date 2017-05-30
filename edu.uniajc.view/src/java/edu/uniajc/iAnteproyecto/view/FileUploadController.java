@@ -26,7 +26,7 @@ public class FileUploadController {
    private String destination="D:\\tmp\\";
  
     public void upload(FileUploadEvent event) {  
-        FacesMessage msg = new FacesMessage("Success! ", event.getFile().getFileName() + " is uploaded.");  
+        FacesMessage msg = new FacesMessage("Exito! ", event.getFile().getFileName() + " Se ha subido al servidor.");  
         FacesContext.getCurrentInstance().addMessage(null, msg);
         // Do what you want with the file        
         try {
