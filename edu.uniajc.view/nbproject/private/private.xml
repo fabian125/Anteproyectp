@@ -2,7 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="PYME_Middleware"/>
         <group>
             <file>file:/C:/Users/azlogin/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.view/web/Lineamientos.xhtml</file>
             <file>file:/C:/Users/azlogin/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.view/web/Idea.xhtml</file>
@@ -10,6 +9,10 @@
             <file>file:/C:/Users/azlogin/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.view/web/TEMPLATES/Home.xhtml</file>
             <file>file:/C:/Users/azlogin/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.view/web/Proyectos.xhtml</file>
             <file>file:/C:/Users/azlogin/Documents/NetBeansProjects/Anteproyectp/edu.uniajc.view/web/Integrantes.xhtml</file>
+        </group>
+        <group name="PYME_Middleware">
+            <file>file:/E:/PracticaEmpresarial/Anteproyectp/edu.uniajc.view/nbproject/build-impl.xml</file>
+            <file>file:/E:/PracticaEmpresarial/Anteproyectp/edu.uniajc.view/src/java/edu/uniajc/iAnteproyecto/view/FileUploadController.java</file>
         </group>
     </open-files>
 </project-private>

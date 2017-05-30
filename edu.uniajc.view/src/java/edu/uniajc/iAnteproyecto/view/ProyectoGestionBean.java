@@ -85,6 +85,9 @@ public class ProyectoGestionBean {
     private ILineamientoDetalle linDetalleServi;
     private String lin = "LineamientoServices";
     private String linDet = "LineamientoDetalleServices";
+    //combos
+    private ArrayList<SelectItem> itemsCorte;
+    private String v_select_corte;
 
     public ProyectoGestionBean() throws NamingException {
         InitialContext ctx = new InitialContext();
@@ -164,10 +167,23 @@ public class ProyectoGestionBean {
         this.itemsLineamiento = Consultar_Lineamiento_combo();
         this.itemsEstadoIntegrante = Consultar_EstadoInt_combo();
         this.itemsTipoIntegrante = Consultar_TipoInt_combo();
+        itemsCorte=Consultar_Corte_combo();
+        v_select_corte="";
+        
         cargarPersonas();
         cargarLineamientosCorte();
 
         // return  null;
+    }
+     public ArrayList<SelectItem> Consultar_Corte_combo() {
+        ListaValorDetalleServices serviciosLine = new ListaValorDetalleServices();
+
+        List<ListaValoresDetalle> lista = serviciosLine.getListaValorDetallebyID_Lista_Valor(1);
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        for (ListaValoresDetalle obj : (ArrayList<ListaValoresDetalle>) lista) {
+            items.add(new SelectItem(obj.getValor(), obj.getDescripcion()));
+        }
+        return items;
     }
     public void cargarLineamientosCorte(){
         lineamientoDetalleCort1=new ArrayList<LineamientoDetalle>();
@@ -357,6 +373,22 @@ public class ProyectoGestionBean {
 
     public void setLeer(LeerPropiedades leer) {
         this.leer = leer;
+    }
+
+    public ArrayList<SelectItem> getItemsCorte() {
+        return itemsCorte;
+    }
+
+    public void setItemsCorte(ArrayList<SelectItem> itemsCorte) {
+        this.itemsCorte = itemsCorte;
+    }
+
+    public String getV_select_corte() {
+        return v_select_corte;
+    }
+
+    public void setV_select_corte(String v_select_corte) {
+        this.v_select_corte = v_select_corte;
     }
 
     public ArrayList<SelectItem> getItemsEstadoProyecto() {

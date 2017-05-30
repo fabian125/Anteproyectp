@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+
+    <body>
+        <ui:composition template="./TEMPLATES/Home.xhtml">
+            <ui:define name="content">
+               <h:form id="forma02">
+                  <!-- forma-->
+            
+            <p:growl id="grow" showDetail="true" life="5555"/>  
+            
+            <p:tabView id="tab">
+                
+                
+                <p:tab title="Gestion Idea"> <!-- Nombre  -->
+                    <h:panelGrid columns="4" cellpadding="5">
+                        <p:outputLabel for="add_6" value="Titulo :" />
+                        <p:inputText   id="add_6" value="#{IdeaBean.idea.TITULO}" required="true" requiredMessage="Campo requerido"/>                       
+                    </h:panelGrid>
+                    <p:separator />
+                    
+                    <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
+                    <p:commandButton 
+                        update=":forma02:grow,:forma02:tab:add_6,:forma03:listaIdea"
+                        ajax="true" value="Crear" action="#{IdeaBean.crear}"
+                                      />
+                </p:tab>
+
+            </p:tabView>
+
+        </h:form>
+
+	<h:form id="forma03">
+            <!--forma2-->
+
+            <p:dataTable id="listaIdea" value="#{IdeaBean.listaidea}"
+			var="idea" 
+                        paginator="true" 
+                        rows="20" 
+                        editable="true"
+                        paginatorPosition="bottom"
+                        >
+
+                <p:ajax event="rowEdit" listener="#{IdeaBean.modificar}" update=":forma02:grow" />
+
+                      <p:column headerText="Codigo Idea">
+                          <p:outputLabel value="#{idea.ID}"></p:outputLabel>
+                  
+			</p:column>
+               
+			<p:column  headerText="Descripcion: ">
+                             <p:cellEditor>
+                                 <f:facet name="output"><h:outputText value="#{idea.DESCRIPCION}" /></f:facet>
+                               <f:facet name="input">
+                                   <p:inputText id="modeldescripcion" value="#{idea.DESCRIPCION}" required="true" requiredMessage="Campo requerido" />
+                               </f:facet>
+                            </p:cellEditor>
+			</p:column>
+                       
+                       <p:column headerText="Palabras Clave:">
+                           <p:outputLabel value="#{idea.PALABRASCLAVE}"></p:outputLabel>
+                  
+			</p:column>
+                    
+                       <p:column headerText="Creado Por:">
+                           <p:outputLabel value="#{idea.CREADOPOR}"></p:outputLabel>
+                  
+			</p:column>
+                
+                <p:column headerText="Creado En:">
+                    <p:outputLabel value="#{idea.CREADOEN}"></p:outputLabel>
+                  
+			</p:column>
+                        
+                       <p:column headerText="Modificado Por">
+                           <p:outputLabel value="#{idea.MODIFICADOPOR}"></p:outputLabel>
+                  
+			</p:column>
+                       
+                          <p:column headerText="Modificado En">
+                              <p:outputLabel value="#{idea.MODIFICADOEN}"></p:outputLabel>
+                  
+			</p:column>               
+                         
+
+			
+
+                      <!-- Editar -->
+                        <p:column style="width:30px">
+                          <p:rowEditor />
+                        </p:column>
+                        <!-- Borrar -->
+                        <p:column headerText="" style="width:30px" >
+                            <p:commandButton 
+                              update=":forma02:grow,:forma03:listaIdea"
+                              ajax="true" icon="ui-icon-trash"
+                              action="#{IdeaBean.eliminar(idea.ID)}" />
+			</p:column> 
+                        
+                        <p:column headerText="" style="width:30px" >
+                            <p:commandButton 
+                              update=":forma02:grow,:forma03:listaIdea"
+                              ajax="true" icon="ui-icon-search" 
+                              action="#{IdeaBean.navega()}">
+                              <f:setPropertyActionListener value="#{idea}"  
+                                                           target="#{IdeaBean.ideaTable}" />                                    
+                            </p:commandButton>
+                                
+			</p:column> 
+
+		</p:dataTable>
+
+	</h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

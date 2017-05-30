@@ -43,9 +43,16 @@
                     <p:growl id="grow" showDetail="true" life="5555"/>  
 
                     <p:tabView id="tab">
-
-
-                        <p:tab title="Corte 2"> <!-- Nombre  -->
+                         <p:tab title="Entregas"> <!-- Nombre  -->
+                         <h:panelGrid columns="4" cellpadding="5">
+                         <p:outputLabel for="add_2" value="Corte :" />
+                         <p:selectOneMenu  id="add_2" value="#{proyectoGestionBean.v_select_corte}" required="true" requiredMessage="Campo requerido">  
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                <f:selectItems value="#{proyectoGestionBean.itemsCorte}"/>  
+                        </p:selectOneMenu>       
+                         </h:panelGrid>
+                             <p:separator />
+                       
                             <p:dataTable id="listaLineamientoCort2" value="#{proyectoGestionBean.lineamientoDetalleCort2}"
                                          var="lineamientoCort2" 
                                          paginator="true" 
@@ -94,6 +101,37 @@
 
                     </p:tabView>
                 </h:form>
+                <h:form id="forma5">
+                    <p:growl id="grow" showDetail="true" life="5555"/>  
+
+                    <p:tabView id="tab">
+
+
+                        <p:tab title="Entrega"> <!-- Nombre  -->
+                            
+                            
+                            
+                            <p:dataTable id="listaLineamientoCort3" value="#{proyectoGestionBean.lineamientoDetalleCort3}"
+                                         var="lineamientoCort3" 
+                                         paginator="true" 
+                                         rows="20" 
+                                         editable="true"
+                                         paginatorPosition="bottom"
+                                         >
+                                <p:column headerText="Descripcion">
+                                    <p:outputLabel value="#{lineamientoCort3.descripcion}"></p:outputLabel>
+                                </p:column>
+
+                                <p:column headerText="Porcentaje">
+                                    <p:outputLabel value="#{lineamientoCort3.porcentaje}"></p:outputLabel>
+                                </p:column>                   
+
+                            </p:dataTable>
+                        </p:tab>
+
+                    </p:tabView>
+                </h:form>
+                
             </ui:define>
 
         </ui:composition>
