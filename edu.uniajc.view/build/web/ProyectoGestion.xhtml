@@ -17,7 +17,10 @@
 
 
                         <p:tab title="Corte 1"> <!-- Nombre  -->
-
+                        <h:panelGrid columns="4" cellpadding="5">
+                         <p:outputLabel for="add_4" value="Calificacion :" />
+                              <p:outputLabel id="add_4" value="5.0" />  
+                         </h:panelGrid>
                             <p:dataTable id="listaLineamientoCort1" value="#{proyectoGestionBean.lineamientoDetalleCort1}"
                                          var="lineamientoCort1" 
                                          paginator="true" 
@@ -43,16 +46,11 @@
                     <p:growl id="grow" showDetail="true" life="5555"/>  
 
                     <p:tabView id="tab">
-                         <p:tab title="Entregas"> <!-- Nombre  -->
-                         <h:panelGrid columns="4" cellpadding="5">
-                         <p:outputLabel for="add_2" value="Corte :" />
-                         <p:selectOneMenu  id="add_2" value="#{proyectoGestionBean.v_select_corte}" required="true" requiredMessage="Campo requerido">  
-                                <f:selectItem itemLabel="Seleccione" itemValue="" />  
-                                <f:selectItems value="#{proyectoGestionBean.itemsCorte}"/>  
-                        </p:selectOneMenu>       
-                         </h:panelGrid>
-                             <p:separator />
-                       
+                         <p:tab title="Corte 2"> <!-- Nombre  -->
+                                   <h:panelGrid columns="4" cellpadding="5">
+                         <p:outputLabel for="add_5" value="Calificacion :" />
+                              <p:outputLabel id="add_5" value="5.0" />  
+                         </h:panelGrid>            
                             <p:dataTable id="listaLineamientoCort2" value="#{proyectoGestionBean.lineamientoDetalleCort2}"
                                          var="lineamientoCort2" 
                                          paginator="true" 
@@ -78,9 +76,13 @@
                     <p:growl id="grow" showDetail="true" life="5555"/>  
 
                     <p:tabView id="tab">
-
+                        
 
                         <p:tab title="Corte 3"> <!-- Nombre  -->
+                            <h:panelGrid columns="4" cellpadding="5">
+                         <p:outputLabel for="add_6" value="Calificacion :" />
+                              <p:outputLabel id="add_6" value="5.0" />  
+                         </h:panelGrid>
                             <p:dataTable id="listaLineamientoCort3" value="#{proyectoGestionBean.lineamientoDetalleCort3}"
                                          var="lineamientoCort3" 
                                          paginator="true" 
@@ -109,7 +111,14 @@
 
                         <p:tab title="Entrega"> <!-- Nombre  -->
                             
-                            
+                             <h:panelGrid columns="4" cellpadding="5">
+                         <p:outputLabel for="add_7" value="Corte :" />
+                         <p:selectOneMenu  id="add_7" value="#{proyectoGestionBean.v_select_corte}" required="true" requiredMessage="Campo requerido">  
+                                <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                <f:selectItems value="#{proyectoGestionBean.itemsCorte}"/>  
+                        </p:selectOneMenu>       
+                         </h:panelGrid>
+                             <p:separator />
                             
                             <p:dataTable id="listaLineamientoCort3" value="#{proyectoGestionBean.lineamientoDetalleCort3}"
                                          var="lineamientoCort3" 

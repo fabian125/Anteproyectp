@@ -53,15 +53,7 @@ public class ProyectoGestionBean {
     private String v_select_estado;
     private String v_select_lineamiento;
 
-    //Integrantes
-    private Integrantes integrante;
-    private IIntegrantes servicioIntegrante;
-    private List<Integrantes> listaIntegrantes;
-    private String configIntegrante = "IntegrantesServices";
-    private ArrayList<SelectItem> itemsTipoIntegrante;
-    private ArrayList<SelectItem> itemsEstadoIntegrante;
-    private String v_select_Tipointegrante;
-    private String v_select_Estadointegrante;
+    
 
     //USUARIO 
     private Usuario user;
@@ -69,12 +61,7 @@ public class ProyectoGestionBean {
     private String configUsuario = "UsuarioServices";
     private String usernamePantalla;
 
-    //PERSONA
-   private Persona persona;
-    private IPersona servicioPersona;
-    private String configPersona = "PersonaServices";
-    private List<Persona> listaPersona;
-    
+      
     //Lineamientos
     private Lineamiento lineamiento;
     private List<LineamientoDetalle> lineamientoDetalle;
@@ -98,16 +85,11 @@ public class ProyectoGestionBean {
         v_select_lineamiento = String.valueOf(proyecto.getId_T_Metodologia());
         v_select_estado = String.valueOf(proyecto.getId_T_LV_estadoProyecto());
         //integrante   
-        this.integrante = new Integrantes();
-        servicioIntegrante = (IIntegrantes) ctx.lookup(leer.leerArchivo(configIntegrante));
-        listaIntegrantes = servicioIntegrante.getIntegrantesByProyecto(proyecto.getID());
+       
         //usuario
         servicioUsuario = (IUsuario) ctx.lookup(leer.leerArchivo(configUsuario));
 
-        //Persona
-        this.persona = new Persona();
-        servicioPersona = (IPersona) ctx.lookup(leer.leerArchivo(configPersona));
-        listaPersona = new ArrayList<Persona>();
+       
         //Lineamientos
         lineamientoService=(ILineamiento) ctx.lookup(leer.leerArchivo(lin));
         linDetalleServi=(ILineamientoDetalle) ctx.lookup(leer.leerArchivo(linDet));
@@ -126,27 +108,9 @@ public class ProyectoGestionBean {
 
     }
 
-    public ArrayList<SelectItem> Consultar_Estado_combo() {
-        ListaValorDetalleServices serviciosLine = new ListaValorDetalleServices();
+ 
 
-        List<ListaValoresDetalle> lista = serviciosLine.getListaValorDetallebyID_Lista_Valor(21);
-        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
-        for (ListaValoresDetalle obj : (ArrayList<ListaValoresDetalle>) lista) {
-            items.add(new SelectItem(obj.getValor(), obj.getDescripcion()));
-        }
-        return items;
-    }
-
-    public ArrayList<SelectItem> Consultar_Lineamiento_combo() {
-        LineamientoServices serviciosLine = new LineamientoServices();
-
-        List<Lineamiento> lista = serviciosLine.getLineamientos();
-        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
-        for (Lineamiento obj : (ArrayList<Lineamiento>) lista) {
-            items.add(new SelectItem(obj.getID(), obj.getDescripcion()));
-        }
-        return items;
-    }
+  
 
     public void limpiarCombox() {
         //v_select_lineamiento="";
@@ -155,22 +119,15 @@ public class ProyectoGestionBean {
 
     }
 
-    public void limpiarComboxIntegrante() {
-        //v_select_lineamiento="";
-        v_select_Tipointegrante = "";
-        v_select_Estadointegrante = "";
-    }
 
     public void ejecuteMetodos() {
 
-        this.itemsEstadoProyecto = Consultar_Estado_combo();
-        this.itemsLineamiento = Consultar_Lineamiento_combo();
-        this.itemsEstadoIntegrante = Consultar_EstadoInt_combo();
-        this.itemsTipoIntegrante = Consultar_TipoInt_combo();
+        
+       
         itemsCorte=Consultar_Corte_combo();
         v_select_corte="";
         
-        cargarPersonas();
+        
         cargarLineamientosCorte();
 
         // return  null;
@@ -209,63 +166,13 @@ public class ProyectoGestionBean {
 
     }
 
-    public void anadirIntegrantePantalla() {
-        this.user = consultarUsuario(usernamePantalla);
-        if (this.user != null) {
-            construirIntegrantesBD();
-            persona = servicioPersona.getPersonabyId(user.getId_t_Persona());
-            listaPersona.add(persona);
-            limpiarComboxIntegrante();
-            this.user = new Usuario();
-            usernamePantalla = "";
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El usuario no existe");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
+ 
 
-    public void updateProyecto() {
+   
 
-        boolean flag;
-        if (listaIntegrantes != null && listaIntegrantes.size() > 0) {
-            proyecto.setCreadoPor("Leon");
-            proyecto.setId_T_Metodologia(Integer.parseInt(this.v_select_lineamiento));
-            proyecto.setId_T_LV_estadoProyecto(Integer.parseInt(this.v_select_estado));
-            servicios.updateProyecto(proyecto);
-            servicioIntegrante.deleteIntegrantesByProyecto(proyecto.getID());
+ 
 
-            //Metodo para crear integrantes  
-            for (int i = 0; i < listaIntegrantes.size(); i++) {
-                listaIntegrantes.get(i).setID_T_Proyecto(proyecto.getID());
-                servicioIntegrante.createintegrantes(listaIntegrantes.get(i));
-
-            }
-
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo crear el proyecto, debe tener minimo un integrante");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
-
-    public void construirIntegrantesBD() {
-
-        this.integrante.setID_T_Usuario(this.user.getId());
-        this.integrante.setID_T_LV_TIPOINTEGRANTE(Integer.parseInt(v_select_Tipointegrante));
-        this.integrante.setID_T_LV_ESTADOINTEGRANTE(Integer.parseInt(v_select_Estadointegrante));
-        this.integrante.setCreadoPor("Leon");
-        this.listaIntegrantes.add(integrante);
-        this.integrante = new Integrantes();
-
-    }
-
-    public void cargarPersonas() {
-        for (int i = 0; i < this.listaIntegrantes.size(); i++) {
-            Usuario usu = servicioUsuario.getUsuarioById(listaIntegrantes.get(i).getID_T_Usuario());
-            Persona per = servicioPersona.getPersonabyId(usu.getId_t_Persona());
-            listaPersona.add(per);
-        }
-
-    }
+   
 
     public ArrayList<SelectItem> Consultar_EstadoInt_combo() {
         ListaValorDetalleServices serviciosLine = new ListaValorDetalleServices();
@@ -289,27 +196,9 @@ public class ProyectoGestionBean {
         return items;
     }
 
-    public void limpiarLista() {
 
-        listaIntegrantes.clear();
-        listaPersona.clear();
-    }
 
-    public void eliminarIntegrante(int idPersona) {
-
-        int idUser = servicioUsuario.getUsuariobyidPersona(idPersona);
-
-        for (int i = 0; i < listaIntegrantes.size(); i++) {
-            if (listaIntegrantes.get(i).getID_T_Usuario() == idUser) {
-                listaIntegrantes.remove(i);
-            }
-        }
-        for (int i = 0; i < listaPersona.size(); i++) {
-            if (listaPersona.get(i).getId() == idPersona) {
-                listaPersona.remove(i);
-            }
-        }
-    }
+   
 
     public IProyecto getServicios() {
         return servicios;
@@ -335,37 +224,7 @@ public class ProyectoGestionBean {
         this.configProyecto = configProyecto;
     }
 
-    public Integrantes getIntegrante() {
-        return integrante;
-    }
-
-    public void setIntegrante(Integrantes integrante) {
-        this.integrante = integrante;
-    }
-
-    public IIntegrantes getServicioIntegrante() {
-        return servicioIntegrante;
-    }
-
-    public void setServicioIntegrante(IIntegrantes servicioIntegrante) {
-        this.servicioIntegrante = servicioIntegrante;
-    }
-
-    public List<Integrantes> getListaIntegrantes() {
-        return listaIntegrantes;
-    }
-
-    public void setListaIntegrantes(List<Integrantes> listaIntegrantes) {
-        this.listaIntegrantes = listaIntegrantes;
-    }
-
-    public String getConfigIntegrante() {
-        return configIntegrante;
-    }
-
-    public void setConfigIntegrante(String configIntegrante) {
-        this.configIntegrante = configIntegrante;
-    }
+    
 
     public LeerPropiedades getLeer() {
         return leer;
@@ -423,21 +282,7 @@ public class ProyectoGestionBean {
         this.v_select_lineamiento = v_select_lineamiento;
     }
 
-    public String getV_select_Tipointegrante() {
-        return v_select_Tipointegrante;
-    }
-
-    public void setV_select_Tipointegrante(String v_select_Tipointegrante) {
-        this.v_select_Tipointegrante = v_select_Tipointegrante;
-    }
-
-    public String getV_select_Estadointegrante() {
-        return v_select_Estadointegrante;
-    }
-
-    public void setV_select_Estadointegrante(String v_select_Estadointegrante) {
-        this.v_select_Estadointegrante = v_select_Estadointegrante;
-    }
+  
 
     public Usuario getUser() {
         return user;
@@ -471,54 +316,7 @@ public class ProyectoGestionBean {
         this.usernamePantalla = usernamePantalla;
     }
 
-    public ArrayList<SelectItem> getItemsTipoIntegrante() {
-        return itemsTipoIntegrante;
-    }
-
-    public void setItemsTipoIntegrante(ArrayList<SelectItem> itemsTipoIntegrante) {
-        this.itemsTipoIntegrante = itemsTipoIntegrante;
-    }
-
-    public ArrayList<SelectItem> getItemsEstadoIntegrante() {
-        return itemsEstadoIntegrante;
-    }
-
-    public void setItemsEstadoIntegrante(ArrayList<SelectItem> itemsEstadoIntegrante) {
-        this.itemsEstadoIntegrante = itemsEstadoIntegrante;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
-    public IPersona getServicioPersona() {
-        return servicioPersona;
-    }
-
-    public void setServicioPersona(IPersona servicioPersona) {
-        this.servicioPersona = servicioPersona;
-    }
-
-    public String getConfigPersona() {
-        return configPersona;
-    }
-
-    public void setConfigPersona(String configPersona) {
-        this.configPersona = configPersona;
-    }
-
-    public List<Persona> getListaPersona() {
-        return listaPersona;
-    }
-
-    public void setListaPersona(List<Persona> listaPersona) {
-        this.listaPersona = listaPersona;
-    }
-
+   
     public Lineamiento getLineamiento() {
         return lineamiento;
     }
